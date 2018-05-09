@@ -1,0 +1,402 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+	xmlns:terms="http://purl.org/dc/terms/" targetNamespace="http://spring.io/guides/gs-producing-web-service"
+	elementFormDefault="qualified">
+
+
+
+	<xs:element name="searchByTermRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="term" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="repositories" type="xs:int" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xs:element name="ignoreExtraProperties" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" default="false" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="searchByTermResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="results" type="tns:result" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xs:element name="count" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="searchByBoxRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="latitudeFrom" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="latitudeTo" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="longitudeFrom" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="longitudeTo" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="repositories" type="xs:int" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xs:element name="ignoreExtraProperties" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" default="false" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="searchByBoxResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="results" type="tns:result" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xs:element name="count" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="listRepositoriesRequest">
+		<xs:complexType>
+			<xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="listRepositoriesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="repositories" type="tns:repository"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:complexType name="result">
+		<xs:sequence>
+
+			<!-- < Dublin Core Metadata Element Set > -->
+
+			<xs:element name="dc_contributor" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="dc_coverage" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_creator" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_date" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_description" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="dc_format" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_identifier" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="dc_language" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_publisher" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="dc_relation" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_rights" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_source" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_subject" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_title" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="dc_type" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+
+
+			<!-- < Dublin Core Metadata Terms > -->
+
+			<xs:element name="terms_" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="terms_abstract" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_accessRights" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_accrualMethod" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_accrualPeriodicity" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_accrualPolicy" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_alternative" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_audience" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_available" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_bibliographicCitation" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_conformsTo" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_created" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_dateAccepted" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_dateCopyrighted" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_dateSubmitted" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_educationLevel" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_extent" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_hasFormat" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_hasPart" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_hasVersion" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_instructionalMethod" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_isFormatOf" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_isPartOf" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_isReferencedBy" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_isReplacedBy" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_isRequiredBy" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_issued" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_isVersionOf" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_license" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_mediator" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_medium" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_modified" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_provenance" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_references" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_replaces" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_requires" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_rightsHolder" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_spatial" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_tableOfContents" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_temporal" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="terms_valid" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+
+
+
+
+			<!-- < Properties > -->
+
+			<xs:element name="sourceRepositorie" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="sourcePage" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="sourceData" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="images" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="physicalCharacteristics" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="createdIn">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0"
+							maxOccurs="unbounded" />
+						<xs:element name="latitude" type="xs:float" minOccurs="0"
+							maxOccurs="unbounded" />
+						<xs:element name="longitude" type="xs:float" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="technique" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+
+
+
+			<xs:element name="locations">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="location">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="id" type="xs:int" minOccurs="1"
+										maxOccurs="1" />
+									<xs:element name="name" type="tns:languageString"
+										minOccurs="0" maxOccurs="unbounded" />
+									<xs:element name="latitude" type="xs:float"
+										minOccurs="0" maxOccurs="unbounded" />
+									<xs:element name="longitude" type="xs:float"
+										minOccurs="0" maxOccurs="unbounded" />
+									<xs:element name="extraProperties" type="tns:extraProperty"
+										minOccurs="0" maxOccurs="unbounded" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="Agents">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Agent">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="name" type="xs:string" minOccurs="0"
+										maxOccurs="unbounded" />
+									<xs:element name="dateOfDeath" type="xs:string"
+										minOccurs="0" maxOccurs="1" />
+									<xs:element name="dateOfBirth" type="xs:string"
+										minOccurs="0" maxOccurs="1" />
+									<xs:element name="extraProperties" type="tns:extraProperty"
+										minOccurs="0" maxOccurs="unbounded" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+
+			<xs:element name="timeSpans" type="tns:timeSpan" minOccurs="0"
+				maxOccurs="unbounded" />
+
+			<!-- < Repositorie Specific Metadata > -->
+
+
+			<xs:element name="specific">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="extraProperties" type="tns:extraProperty"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<!-- < Created Relations > -->
+
+
+			<xs:element name="sameLocationCoordenatesThat">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="relation" type="tns:relation"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="sameLocationNameThat">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="relation" type="tns:relation"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- < Extra Complex Types > -->
+
+
+	<xs:complexType name="relation">
+		<xs:sequence>
+			<xs:element name="idResult" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="thisResultIdLocation" type="xs:int"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="targetResultIdLocation" type="xs:int"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="extraProperty">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" />
+			<xs:element name="Value" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="repository">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="ID" type="xs:int" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="Description" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="SearchByTerm" type="xs:boolean"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="SearchByBox" type="xs:boolean"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+
+	<xs:complexType name="languageString">
+		<xs:sequence>
+			<xs:element name="Text" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="Language" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="timeSpan">
+		<xs:sequence>
+			<xs:element name="name" type="tns:languageString"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="begin" type="tns:dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="end" type="tns:dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="extraProperties" type="tns:extraProperty"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="dateTime">
+		<xs:sequence>
+			<xs:element name="Year" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="Month" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="Day" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="Hour" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="Minute" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="Second" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+
+</xs:schema>
