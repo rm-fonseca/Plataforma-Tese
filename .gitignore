@@ -55,7 +55,6 @@ buildNumber.properties
 *.iml
 *.ipr
 *.iws
-*.jar
 *.sw?
 *~
 .#*
@@ -91,3 +90,7 @@ transaction-logs
 secrets.yml
 .gradletasknamecache
 .sts4-cache
+
+
+#Repositories Jarj
+!Repositorios/*.jar
