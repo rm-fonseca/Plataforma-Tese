@@ -12,22 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for timeSpan complex type.
+ * <p>Java class for location complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="timeSpan">
+ * &lt;complexType name="location">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="name" type="{http://spring.io/guides/gs-producing-web-service}languageString" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="begin" type="{http://spring.io/guides/gs-producing-web-service}dateTime" minOccurs="0"/>
- *         &lt;element name="end" type="{http://spring.io/guides/gs-producing-web-service}dateTime" minOccurs="0"/>
+ *         &lt;element name="latitude" type="{http://www.w3.org/2001/XMLSchema}float" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="longitude" type="{http://www.w3.org/2001/XMLSchema}float" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="extraProperties" type="{http://spring.io/guides/gs-producing-web-service}extraProperty" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -38,18 +40,38 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "timeSpan", propOrder = {
+@XmlType(name = "location", propOrder = {
+    "id",
     "name",
-    "begin",
-    "end",
+    "latitude",
+    "longitude",
     "extraProperties"
 })
-public class TimeSpan {
+public class Location {
 
+    protected int id;
     protected List<LanguageString> name;
-    protected DateTime begin;
-    protected DateTime end;
+    @XmlElement(type = Float.class)
+    protected List<Float> latitude;
+    @XmlElement(type = Float.class)
+    protected List<Float> longitude;
     protected List<ExtraProperty> extraProperties;
+
+    /**
+     * Gets the value of the id property.
+     * 
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     */
+    public void setId(int value) {
+        this.id = value;
+    }
 
     /**
      * Gets the value of the name property.
@@ -81,51 +103,61 @@ public class TimeSpan {
     }
 
     /**
-     * Gets the value of the begin property.
+     * Gets the value of the latitude property.
      * 
-     * @return
-     *     possible object is
-     *     {@link DateTime }
-     *     
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the latitude property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getLatitude().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Float }
+     * 
+     * 
      */
-    public DateTime getBegin() {
-        return begin;
+    public List<Float> getLatitude() {
+        if (latitude == null) {
+            latitude = new ArrayList<Float>();
+        }
+        return this.latitude;
     }
 
     /**
-     * Sets the value of the begin property.
+     * Gets the value of the longitude property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link DateTime }
-     *     
-     */
-    public void setBegin(DateTime value) {
-        this.begin = value;
-    }
-
-    /**
-     * Gets the value of the end property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the longitude property.
      * 
-     * @return
-     *     possible object is
-     *     {@link DateTime }
-     *     
-     */
-    public DateTime getEnd() {
-        return end;
-    }
-
-    /**
-     * Sets the value of the end property.
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getLongitude().add(newItem);
+     * </pre>
      * 
-     * @param value
-     *     allowed object is
-     *     {@link DateTime }
-     *     
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Float }
+     * 
+     * 
      */
-    public void setEnd(DateTime value) {
-        this.end = value;
+    public List<Float> getLongitude() {
+        if (longitude == null) {
+            longitude = new ArrayList<Float>();
+        }
+        return this.longitude;
     }
 
     /**

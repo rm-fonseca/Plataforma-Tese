@@ -16,18 +16,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for timeSpan complex type.
+ * <p>Java class for agent complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="timeSpan">
+ * &lt;complexType name="agent">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="name" type="{http://spring.io/guides/gs-producing-web-service}languageString" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="begin" type="{http://spring.io/guides/gs-producing-web-service}dateTime" minOccurs="0"/>
- *         &lt;element name="end" type="{http://spring.io/guides/gs-producing-web-service}dateTime" minOccurs="0"/>
+ *         &lt;element name="dateOfDeath" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="dateOfBirth" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="extraProperties" type="{http://spring.io/guides/gs-producing-web-service}extraProperty" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -38,17 +38,17 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "timeSpan", propOrder = {
+@XmlType(name = "agent", propOrder = {
     "name",
-    "begin",
-    "end",
+    "dateOfDeath",
+    "dateOfBirth",
     "extraProperties"
 })
-public class TimeSpan {
+public class Agent {
 
     protected List<LanguageString> name;
-    protected DateTime begin;
-    protected DateTime end;
+    protected String dateOfDeath;
+    protected String dateOfBirth;
     protected List<ExtraProperty> extraProperties;
 
     /**
@@ -81,51 +81,51 @@ public class TimeSpan {
     }
 
     /**
-     * Gets the value of the begin property.
+     * Gets the value of the dateOfDeath property.
      * 
      * @return
      *     possible object is
-     *     {@link DateTime }
+     *     {@link String }
      *     
      */
-    public DateTime getBegin() {
-        return begin;
+    public String getDateOfDeath() {
+        return dateOfDeath;
     }
 
     /**
-     * Sets the value of the begin property.
+     * Sets the value of the dateOfDeath property.
      * 
      * @param value
      *     allowed object is
-     *     {@link DateTime }
+     *     {@link String }
      *     
      */
-    public void setBegin(DateTime value) {
-        this.begin = value;
+    public void setDateOfDeath(String value) {
+        this.dateOfDeath = value;
     }
 
     /**
-     * Gets the value of the end property.
+     * Gets the value of the dateOfBirth property.
      * 
      * @return
      *     possible object is
-     *     {@link DateTime }
+     *     {@link String }
      *     
      */
-    public DateTime getEnd() {
-        return end;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
     /**
-     * Sets the value of the end property.
+     * Sets the value of the dateOfBirth property.
      * 
      * @param value
      *     allowed object is
-     *     {@link DateTime }
+     *     {@link String }
      *     
      */
-    public void setEnd(DateTime value) {
-        this.end = value;
+    public void setDateOfBirth(String value) {
+        this.dateOfBirth = value;
     }
 
     /**

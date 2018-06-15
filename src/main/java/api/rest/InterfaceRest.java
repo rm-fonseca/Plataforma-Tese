@@ -5,6 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import dataController.DataController;
 import io.spring.guides.gs_producing_web_service.ListRepositoriesRequest;
 import io.spring.guides.gs_producing_web_service.ListRepositoriesResponse;
@@ -38,6 +43,7 @@ public class InterfaceRest {
 			request.getRepositories().addAll(repositories);
 		List<Result> results = DataController.Search(request);
 
+
 		SearchByTermResponse response = new SearchByTermResponse();
 		response.getResults().addAll(results);
 		response.setCount(results.size());
@@ -57,7 +63,7 @@ public class InterfaceRest {
 		if (repositories != null)
 			box.getRepositories().addAll(repositories);
 		List<Result> results = DataController.SearchBox(box);
-
+		
 		SearchByBoxResponse response = new SearchByBoxResponse();
 		response.getResults().addAll(results);
 		response.setCount(results.size());
