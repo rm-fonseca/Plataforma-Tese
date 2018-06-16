@@ -305,6 +305,8 @@
 		<xs:sequence>
 			<xs:element name="fieldName" type="xs:string"
 				minOccurs="1" maxOccurs="1" />
+			<xs:element name="fieldValue" type="xs:string"
+				minOccurs="1" maxOccurs="1" />
 			<xs:element name="targetResultId" type="xs:string"
 				minOccurs="1" maxOccurs="1" />
 		</xs:sequence>
