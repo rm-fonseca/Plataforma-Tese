@@ -22,8 +22,6 @@ import repositoryController.RepositoryController;
  */
 public class DataController {
 
-
-
 	public static List<Result> Search(SearchByTermRequest request) {
 
 		System.out.print("SearchByTerm Term=" + request.getTerm());
@@ -42,14 +40,9 @@ public class DataController {
 		System.out.println();
 		List<Result> results = RepositoryController.Search(request);
 
-
 		findRelationsCoordinates(results);
 
-		String[] fields = ConfigurationPlatform.getParamtesRelation();
 
-		
-		for (String field : fields)
-			findRelationsField(field, results);
 
 		return results;
 
@@ -79,13 +72,17 @@ public class DataController {
 		List<Result> results = RepositoryController.SearchBox(request);
 
 		findRelationsCoordinates(results);
+		String[]fields = ConfigurationPlatform.getParamtesCombineFields();
 
-		String[] fields = ConfigurationPlatform.getParamtesRelation();
-
+		for (String field : fields)
+			findRelationsFieldCombine(field.split("&"), results);
 		
+		 fields = ConfigurationPlatform.getParamtesRelation();
+
 		for (String field : fields)
 			findRelationsField(field, results);
-		
+
+
 		return results;
 
 	}
@@ -115,15 +112,17 @@ public class DataController {
 
 				for (Location location1 : result1.getLocations()) {
 
-					if(location1.getLatitude().size() == 0 || location1.getLongitude().size() == 0)
+					if (location1.getLatitude().size() == 0 || location1.getLongitude().size() == 0)
 						continue;
-					
+
 					if (location1.getLatitude().size() == 1) {
 						max = location1.getLatitude().get(0) + ConfigurationPlatform.getCordinatesPointExtraRange();
 						min = location1.getLatitude().get(0) - ConfigurationPlatform.getCordinatesPointExtraRange();
 					} else {
-						max = Collections.max(location1.getLatitude()) + ConfigurationPlatform.getCordinatesAreaExtraRange();
-						min = Collections.max(location1.getLatitude()) - ConfigurationPlatform.getCordinatesAreaExtraRange();
+						max = Collections.max(location1.getLatitude())
+								+ ConfigurationPlatform.getCordinatesAreaExtraRange();
+						min = Collections.max(location1.getLatitude())
+								- ConfigurationPlatform.getCordinatesAreaExtraRange();
 					}
 
 					for (Location location2 : result2.getLocations()) {
@@ -145,11 +144,15 @@ public class DataController {
 								break;
 
 							if (location1.getLongitude().size() == 1) {
-								max = location1.getLongitude().get(0) + ConfigurationPlatform.getCordinatesPointExtraRange();
-								min = location1.getLongitude().get(0) - ConfigurationPlatform.getCordinatesPointExtraRange();
+								max = location1.getLongitude().get(0)
+										+ ConfigurationPlatform.getCordinatesPointExtraRange();
+								min = location1.getLongitude().get(0)
+										- ConfigurationPlatform.getCordinatesPointExtraRange();
 							} else {
-								max = Collections.max(location1.getLongitude()) + ConfigurationPlatform.getCordinatesAreaExtraRange();
-								min = Collections.max(location1.getLongitude()) - ConfigurationPlatform.getCordinatesAreaExtraRange();
+								max = Collections.max(location1.getLongitude())
+										+ ConfigurationPlatform.getCordinatesAreaExtraRange();
+								min = Collections.max(location1.getLongitude())
+										- ConfigurationPlatform.getCordinatesAreaExtraRange();
 							}
 
 							for (float longitude : location2.getLongitude()) {
@@ -191,6 +194,7 @@ public class DataController {
 
 	private static void findRelationsField(String field, List<Result> resultList) {
 
+		boolean found = false;
 
 		for (int i = 0; i < resultList.size() - 1; i++) {
 
@@ -209,6 +213,8 @@ public class DataController {
 				if (result2Lang == null || result2Lang.size() == 0)
 					break;
 
+				found = false;
+
 				for (LanguageString langString1 : result1Lang) {
 
 					for (LanguageString langString2 : result2Lang) {
@@ -226,7 +232,7 @@ public class DataController {
 
 										rel1.setFieldName(field);
 										rel2.setFieldName(field);
-										
+
 										rel1.setFieldValue(lang1text);
 										rel2.setFieldValue(lang1text);
 
@@ -236,13 +242,99 @@ public class DataController {
 										result1.getRelationsByFields().add(rel1);
 										result2.getRelationsByFields().add(rel2);
 
+										found = true;
+										break;
 									}
 
 								}
+								if (found)
+									break;
 							}
 
 						}
+						if (found)
+							break;
+					}
+					if (found)
+						break;
+				}
 
+			}
+		}
+
+	}
+
+	private static void findRelationsFieldCombine(String[] fields, List<Result> resultList) {
+		boolean found = false;
+
+		String field;
+		boolean[] fieldValidation = new boolean[fields.length];
+
+		for (int i = 0; i < resultList.size() - 1; i++) {
+
+			for (int j = i + 1; j < resultList.size(); j++) {
+
+				for (int fieldValidationCounter = 0; fieldValidationCounter < fields.length; fieldValidationCounter++)
+					fieldValidation[fieldValidationCounter] = false;
+
+				Result result1 = resultList.get(i);
+				Result result2 = resultList.get(j);
+
+				int fieldCounter;
+
+				for (fieldCounter = 0; fieldCounter < fields.length; fieldCounter++) {
+
+					field = fields[fieldCounter];
+
+					List<LanguageString> result1Lang = findField(field, result1);
+
+					if (result1Lang == null || result1Lang.size() == 0)
+						break;
+
+					List<LanguageString> result2Lang = findField(field, result2);
+
+					if (result2Lang == null || result2Lang.size() == 0)
+						break;
+
+					found = false;
+
+					for (LanguageString langString1 : result1Lang) {
+
+						for (LanguageString langString2 : result2Lang) {
+
+							if (langString1.getLanguage().equalsIgnoreCase(langString2.getLanguage())) {
+
+								for (String lang1text : langString1.getText()) {
+
+									for (String lang2text : langString2.getText()) {
+
+										if (lang1text.equalsIgnoreCase(lang2text)) {
+
+											fieldValidation[fieldCounter] = true;
+											found = true;
+										}
+
+									}
+									if (found)
+										break;
+								}
+
+							}
+							if (found)
+								break;
+						}
+						if (found)
+							break;
+					}
+
+					if (!fieldValidation[fieldCounter])
+						break;
+
+					if (fieldCounter == fields.length - 1) {
+						joinResults(result1, result2);
+						resultList.remove(j);
+						j--;
+						result1.setIsCombinedResut(true);
 					}
 				}
 
@@ -253,10 +345,9 @@ public class DataController {
 
 	private static List<LanguageString> findField(String fieldPath, Result result) {
 
-		
-		if(fieldPath.length() == 0)
+		if (fieldPath.length() == 0)
 			return null;
-		
+
 		String[] fieldsNames = fieldPath.split("-");
 		Class aClass;
 		Method method;
@@ -273,7 +364,6 @@ public class DataController {
 
 					aClass = baseObject.getClass();
 
-					
 					method = aClass.getMethod(methodName);
 					value = method.invoke(baseObject);
 
@@ -282,7 +372,7 @@ public class DataController {
 					 * value).get(0) instanceof LanguageString) return (List<LanguageString>) value;
 					 */
 					if (value instanceof List<?>) {
-						List<?> list = (List<?>) value;
+						List<Object> list = (List<Object>) value;
 
 						for (Object valueInList : list) {
 							values.add(valueInList);
@@ -296,16 +386,15 @@ public class DataController {
 				baseObjects = values;
 
 			}
-			
+
 			List<LanguageString> languageStringValues = new ArrayList<>();
-			
-			
+
 			for (Object object : values) {
-				languageStringValues.add((LanguageString)object);
+				languageStringValues.add((LanguageString) object);
 			}
-			
+
 			return languageStringValues;
-			
+
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -325,6 +414,67 @@ public class DataController {
 
 		return null;
 
+	}
+
+	private static void joinResults(Object a, Object b) {
+
+		List<Field> privateFields = new ArrayList<>();
+		Field[] allFields = a.getClass().getDeclaredFields();
+		Object valueA, valueB;
+		Method methodA = null, methodB;
+		try {
+
+			for (Field field : allFields) {
+
+				String fieldName = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+
+				try {
+					methodA = a.getClass().getMethod("get" + fieldName);
+				} catch (NoSuchMethodException e) {
+					methodA = a.getClass().getMethod("is" + fieldName);
+				}
+				valueA = methodA.invoke(a);
+				valueB = methodA.invoke(b);
+
+				System.out.println();
+				System.out.println(field);
+				System.out.println(a);
+				System.out.println(b);
+
+				if (valueB == null)
+					continue;
+				else if (valueA == null)
+					a.getClass().getMethod("set" + fieldName).invoke(a, valueB);
+				else if (valueA instanceof List<?>) {
+					List<Object> listA = (List<Object>) valueA;
+					List<Object> listB = (List<Object>) valueB;
+					listA.addAll(listB);
+				} else if (valueA.getClass().isPrimitive()) {
+					//TODO pensar nisto
+				} else {
+
+					joinResults(valueA, valueB);
+
+				}
+
+			}
+
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

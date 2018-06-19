@@ -30,6 +30,16 @@ public class ConfigurationPlatform {
 		return fields.split(";");
 	}
 	
+	public static String[] getParamtesCombineFields() {
+		List<String> list = new ArrayList<>();
+
+		String fields = prop.getProperty("CombineFields","");
+		if (fields.length() == 0)
+			return new String[0];
+
+		return fields.split(";");
+	}
+	
 	public static float getCordinatesAreaExtraRange() {
 		
 		
