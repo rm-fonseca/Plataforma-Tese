@@ -1,4 +1,4 @@
-package AsyncCalls;
+package repositoryController;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -13,7 +13,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import io.spring.guides.gs_producing_web_service.Result;
 import io.spring.guides.gs_producing_web_service.SearchByBoxRequest;
 import io.spring.guides.gs_producing_web_service.SearchByTermRequest;
-import repositoryController.RepositoryContainer;
 
 /*
  * Calls using threads to the reposiotires.

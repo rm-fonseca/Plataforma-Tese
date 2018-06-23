@@ -11,12 +11,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import AsyncCalls.AsyncRepositorieConfig;
-import AsyncCalls.AsyncRepositorieConfig.AsyncRepositoriesCalls;
+
 import io.spring.guides.gs_producing_web_service.Repository;
 import io.spring.guides.gs_producing_web_service.Result;
 import io.spring.guides.gs_producing_web_service.SearchByBoxRequest;
 import io.spring.guides.gs_producing_web_service.SearchByTermRequest;
+import repositoryController.AsyncRepositorieConfig.AsyncRepositoriesCalls;
 
 @Component
 public class RepositoryController {
