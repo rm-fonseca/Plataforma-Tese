@@ -49,9 +49,6 @@ public class DataController {
 		System.out.println();
 		List<Result> results = RepositoryController.Search(request);
 
-		workData(results);
-
-
 
 		return results;
 
@@ -79,56 +76,44 @@ public class DataController {
 		System.out.println();
 		List<Result> results = RepositoryController.SearchBox(request);
 
-		workData(results);
+		workData(results,request.isDisableCombine(),request.isDisableRelation());
 
 		return results;
 
 	}
-	
-	private static void workData(List<Result> results) {
 
+	private static void workData(List<Result> results, boolean disableCombine, boolean disableRelations) {
 
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-				AsyncDataController.class);
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AsyncDataController.class);
 		AsyncDataCalls asyncRepositoriesCalls = context.getBean(AsyncDataCalls.class);
 		System.out.printf("calling async method from thread: %s%n",
 				Thread.currentThread().getName() + Thread.currentThread().getId());
 
-		
-		System.out.println("Begin ConfigurationPlatform.getParamtesCombineFields()");
-		
-		String[]fields = ConfigurationPlatform.getParamtesCombineFields();
+		if (!disableCombine) {
+			String[] fields = ConfigurationPlatform.getParamtesCombineFields();
 
-		System.out.println("End ConfigurationPlatform.getParamtesCombineFields()");
+			for (String field : fields)
+				asyncRepositoriesCalls.findRelationsFieldCombine(field.split("&"), results);
 
-		
-		for (String field : fields)
-			asyncRepositoriesCalls.findRelationsFieldCombine(field.split("&"), results);
-		
-		List<Future<Void>> threads = new ArrayList<>();
+		}
 
-		
-		
-		threads.add(asyncRepositoriesCalls.findRelationsCoordinates(results));
-		
-		 fields = ConfigurationPlatform.getParamtesRelation();
+		if (!disableRelations) {
+			List<Future<Void>> threads = new ArrayList<>();
 
-		for (String field : fields)
-			threads.add(asyncRepositoriesCalls.findRelationsField(field, results));
-		
-		
-		
-		System.out.println("Start Wait");
-		CompletableFuture.allOf(threads.toArray(new CompletableFuture[0])).join();
-		System.out.println("All Finished");
-		
+			threads.add(asyncRepositoriesCalls.findRelationsCoordinates(results));
+
+			String[] fields = ConfigurationPlatform.getParamtesRelation();
+
+			for (String field : fields)
+				threads.add(asyncRepositoriesCalls.findRelationsField(field, results));
+
+			System.out.println("Start Wait");
+			CompletableFuture.allOf(threads.toArray(new CompletableFuture[0])).join();
+			System.out.println("All Finished");
+		}
+
+
 		context.close();
 	}
-	
-	
-	
-
-	
-
 
 }

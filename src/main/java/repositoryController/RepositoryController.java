@@ -31,10 +31,6 @@ public class RepositoryController {
 	 */
 	public static List<Result> Search(SearchByTermRequest request) {
 
-		// TODO TIRAR ISTO DAQUI
-		if (repositories == null)
-			RepositoryController.getRepositories();
-
 		List<Result> result = new ArrayList<>();
 
 		/*
@@ -88,9 +84,7 @@ public class RepositoryController {
 	 */
 	public static List<Result> SearchBox(SearchByBoxRequest request) {
 
-		// TODO TIRAR ISTO DAQUI
-		if (repositories == null)
-			RepositoryController.getRepositories();
+	
 
 		List<Result> result = new ArrayList<>();
 

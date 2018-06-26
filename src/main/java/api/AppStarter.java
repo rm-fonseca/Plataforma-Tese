@@ -8,6 +8,9 @@ import java.util.Properties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import repositoryController.RepositoryController;
 
 /*
  * Spring Starter
@@ -19,8 +22,13 @@ public class AppStarter extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws IOException {
 
+		RepositoryController.getRepositories();
+
+		
 		// Load Properties
 
+
+		
 		ConfigurationPlatform.prop = new Properties();
 		InputStream input = null;
 

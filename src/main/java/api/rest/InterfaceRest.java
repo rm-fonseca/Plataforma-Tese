@@ -1,6 +1,8 @@
 package api.rest;
 
 import java.util.List;
+
+import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +28,8 @@ import repositoryController.RepositoryController;
  * Interface for Rest Web Services
  * All rest services are under /rest/
  */
-
 @RestController
+@RequestMapping(value = "rest")
 public class InterfaceRest {
 
 	
@@ -36,7 +38,7 @@ public class InterfaceRest {
 	 * Search by term.
 	 * Optionally can be chosen what repositories to search.
 	 */
-	@RequestMapping(value = "rest/searchByTerm", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "searchByTerm", method = RequestMethod.GET, produces = "application/json")
 	public SearchByTermResponse search(SearchByTermRequest request,
 			@RequestParam(required = false) List<Integer> repositories) {
 		if (repositories != null)
@@ -57,7 +59,7 @@ public class InterfaceRest {
 	 * Search by coordinates, receiving 2 values to latitude and 2 values to longitude to define a box.
 	 * Optionally can be chosen what repositories to search.
 	 */
-	@RequestMapping(value = "rest/searchByBox", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "searchByBox", method = RequestMethod.GET, produces = "application/json")
 	public SearchByBoxResponse searchBox(SearchByBoxRequest box,
 			@RequestParam(required = false) List<Integer> repositories) {
 		if (repositories != null)
@@ -74,7 +76,7 @@ public class InterfaceRest {
 	 * List all repositories available in the platform
 	 */
 
-	@RequestMapping(value = "rest/listRepositories", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "listRepositories", method = RequestMethod.GET, produces = "application/json")
 	public ListRepositoriesResponse listRepositories(ListRepositoriesRequest request) {
 
 		List<Repository> results = RepositoryController.ListRepositories();

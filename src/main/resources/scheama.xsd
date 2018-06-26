@@ -18,6 +18,10 @@
 					minOccurs="0" maxOccurs="unbounded" />
 				<xs:element name="ignoreExtraProperties"
 					type="xs:boolean" minOccurs="1" maxOccurs="1" default="false" />
+				<xs:element name="disableRelation" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" default="false" />
+				<xs:element name="disableCombine" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" default="false" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -54,6 +58,10 @@
 					minOccurs="0" maxOccurs="unbounded" />
 				<xs:element name="ignoreExtraProperties"
 					type="xs:boolean" minOccurs="1" maxOccurs="1" default="false" />
+				<xs:element name="disableRelation" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" default="false" />
+				<xs:element name="disableCombine" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" default="false" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -228,7 +236,7 @@
 			<xs:element name="sourceData" type="xs:string"
 				minOccurs="0" maxOccurs="unbounded" />
 			<xs:element name="IsCombinedResut" type="xs:boolean"
-				minOccurs="1" maxOccurs="1"  default="false" />
+				minOccurs="1" maxOccurs="1" default="false" />
 			<xs:element name="images" type="xs:string" minOccurs="0"
 				maxOccurs="unbounded" />
 			<xs:element name="physicalCharacteristics"
@@ -256,8 +264,8 @@
 				minOccurs="0" maxOccurs="unbounded" />
 
 
-			<xs:element name="agents" type="tns:agent"
-				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="agents" type="tns:agent" minOccurs="0"
+				maxOccurs="unbounded" />
 
 
 
@@ -269,20 +277,20 @@
 
 
 
-				<xs:element name="extraProperties"
-					type="tns:extraProperty" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="extraProperties"
+				type="tns:extraProperty" minOccurs="0" maxOccurs="unbounded" />
 
 
 			<!-- < Created Relations > -->
 
 
 
-				<xs:element name="relationsByFields"
-					type="tns:relationField" minOccurs="0" maxOccurs="unbounded" />
-					
-					
-				<xs:element name="sameLocationCoordenatesThat"
-					type="tns:relationLocations" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="relationsByFields"
+				type="tns:relationField" minOccurs="0" maxOccurs="unbounded" />
+
+
+			<xs:element name="sameLocationCoordenatesThat"
+				type="tns:relationLocations" minOccurs="0" maxOccurs="unbounded" />
 
 
 		</xs:sequence>
@@ -352,18 +360,18 @@
 		</xs:sequence>
 	</xs:complexType>
 
-					<xs:complexType name="agent">
-						<xs:sequence>
-							<xs:element name="name" type="tns:languageString"
-								minOccurs="0" maxOccurs="unbounded" />
-							<xs:element name="dateOfDeath" type="xs:string"
-								minOccurs="0" maxOccurs="1" />
-							<xs:element name="dateOfBirth" type="xs:string"
-								minOccurs="0" maxOccurs="1" />
-							<xs:element name="extraProperties"
-								type="tns:extraProperty" minOccurs="0" maxOccurs="unbounded" />
-						</xs:sequence>
-					</xs:complexType>
+	<xs:complexType name="agent">
+		<xs:sequence>
+			<xs:element name="name" type="tns:languageString"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="dateOfDeath" type="xs:string"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="dateOfBirth" type="xs:string"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="extraProperties"
+				type="tns:extraProperty" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
 
 	<xs:complexType name="languageString">
 		<xs:sequence>
