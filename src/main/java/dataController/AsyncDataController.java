@@ -23,6 +23,7 @@ import io.spring.guides.gs_producing_web_service.Location;
 import io.spring.guides.gs_producing_web_service.RelationField;
 import io.spring.guides.gs_producing_web_service.RelationLocations;
 import io.spring.guides.gs_producing_web_service.Result;
+import io.spring.guides.gs_producing_web_service.ValueField;
 import repositoryController.AsyncRepositorieConfig.AsyncRepositoriesCalls;
 
 @EnableAsync
@@ -171,7 +172,7 @@ public class AsyncDataController {
 		}
 
 		@Async("DataControllerExecutor")
-		CompletableFuture<Void> findRelationsField(String field, List<Result> resultList) {
+		CompletableFuture<Void> findRelationsField2(String field, List<Result> resultList) {
 
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
@@ -209,28 +210,6 @@ public class AsyncDataController {
 
 										if (lang1text.equalsIgnoreCase(lang2text)) {
 
-											RelationField rel1 = new RelationField();
-											RelationField rel2 = new RelationField();
-
-											rel1.setFieldName(field);
-											rel2.setFieldName(field);
-
-											rel1.setFieldValue(lang1text);
-											rel2.setFieldValue(lang1text);
-
-											rel1.setTargetResultId(result2.getSourceData().get(0));
-											rel2.setTargetResultId(result1.getSourceData().get(0));
-
-											synchronized (result1) {
-												result1.getRelationsByFields().add(rel1);
-											}
-
-											synchronized (result2) {
-												result2.getRelationsByFields().add(rel2);
-											}
-
-											found = true;
-											break;
 										}
 
 									}
@@ -244,6 +223,113 @@ public class AsyncDataController {
 						}
 						if (found)
 							break;
+					}
+
+				}
+			}
+			System.out
+					.println("Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
+			System.out.flush();
+
+			return CompletableFuture.completedFuture(null);
+
+		}
+
+		@Async("DataControllerExecutor")
+		CompletableFuture<Void> findRelationsField(String fields[], List<Result> resultList) {
+
+			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
+					+ Thread.currentThread().getId());
+
+			boolean found = false;
+
+			String field;
+			boolean[] fieldValidation = new boolean[fields.length];
+
+			for (int i = 0; i < resultList.size() - 1; i++) {
+
+				for (int j = i + 1; j < resultList.size(); j++) {
+
+					for (int fieldValidationCounter = 0; fieldValidationCounter < fields.length; fieldValidationCounter++)
+						fieldValidation[fieldValidationCounter] = false;
+
+					Result result1 = resultList.get(i);
+					Result result2 = resultList.get(j);
+
+					int fieldCounter;
+
+					RelationField rel1 = new RelationField();
+					RelationField rel2 = new RelationField();
+
+					for (fieldCounter = 0; fieldCounter < fields.length; fieldCounter++) {
+
+						field = fields[fieldCounter];
+
+						List<LanguageString> result1Lang = findField(field, result1);
+
+						if (result1Lang == null || result1Lang.size() == 0)
+							break;
+
+						List<LanguageString> result2Lang = findField(field, result2);
+
+						if (result2Lang == null || result2Lang.size() == 0)
+							break;
+
+						found = false;
+
+						for (LanguageString langString1 : result1Lang) {
+
+							for (LanguageString langString2 : result2Lang) {
+
+								if (langString1.getLanguage().equalsIgnoreCase(langString2.getLanguage())) {
+
+									for (String lang1text : langString1.getText()) {
+
+										for (String lang2text : langString2.getText()) {
+
+											if (lang1text.equalsIgnoreCase(lang2text)) {
+
+												ValueField vf = new ValueField();
+
+												vf.setFieldName(field);
+												vf.setFieldValue(lang1text);
+
+												rel1.getValueField().add(vf);
+
+												fieldValidation[fieldCounter] = true;
+												found = true;
+											}
+
+										}
+										if (found)
+											break;
+									}
+
+								}
+								if (found)
+									break;
+							}
+							if (found)
+								break;
+						}
+
+						if (!fieldValidation[fieldCounter])
+							break;
+
+						if (fieldCounter == fields.length - 1) {
+
+							rel1.setTargetResultId(result2.getSourceData().get(0));
+							rel2.setTargetResultId(result1.getSourceData().get(0));
+
+							synchronized (result1) {
+								result1.getRelationsByFields().add(rel1);
+							}
+
+							synchronized (result2) {
+								result2.getRelationsByFields().add(rel2);
+							}
+
+						}
 					}
 
 				}
@@ -359,10 +445,6 @@ public class AsyncDataController {
 						method = aClass.getMethod(methodName);
 						value = method.invoke(baseObject);
 
-						/*
-						 * if (value instanceof List<?>) if (((List<?>) value).size() > 0 && ((List<?>)
-						 * value).get(0) instanceof LanguageString) return (List<LanguageString>) value;
-						 */
 						if (value instanceof List<?>) {
 							List<Object> list = (List<Object>) value;
 
@@ -433,7 +515,44 @@ public class AsyncDataController {
 					else if (valueA instanceof List<?>) {
 						List<Object> listA = (List<Object>) valueA;
 						List<Object> listB = (List<Object>) valueB;
-						listA.addAll(listB);
+
+						if (listB.size() == 0)
+							continue;
+
+						if (listB.get(0) instanceof LanguageString) {
+
+							List<LanguageString> listALs = (List<LanguageString>) valueA;
+							List<LanguageString> listBLs = (List<LanguageString>) valueB;
+
+							List<LanguageString> toAdd = new ArrayList<LanguageString>();
+
+							for (LanguageString languageStringB : listBLs) {
+								boolean found = false;
+								for (LanguageString languageStringA : listALs) {
+									if (languageStringA.getLanguage().equals(languageStringB.getLanguage())) {
+										found = true;
+										for (String stringB : languageStringB.getText()) {
+
+											if (!languageStringA.getText().contains(stringB))
+												languageStringA.getText().add(stringB);
+
+										}
+
+										break;
+
+									}
+								}
+
+								if (!found) {
+									toAdd.add(languageStringB);
+								}
+
+							}
+
+							listA.addAll(toAdd);
+
+						} else
+							listA.addAll(listB);
 					} else if (BeanUtils.isSimpleValueType(valueA.getClass())) {
 					} else {
 

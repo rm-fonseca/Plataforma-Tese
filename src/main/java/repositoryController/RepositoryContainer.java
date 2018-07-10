@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
@@ -58,6 +59,17 @@ public class RepositoryContainer {
 			prop.load(input);
 
 			rep.setName(prop.getProperty("Name", null));
+			
+			Enumeration<Object> a = prop.keys();
+			
+			while(a.hasMoreElements())
+				System.out.println(a.nextElement().toString());
+			
+			System.out.println(prop.getProperty("Name", null));
+			
+			
+			
+			
 			rep.setDescription(prop.getProperty("Description", null));
 
 			// TODO if ID null exception

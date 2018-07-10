@@ -237,8 +237,12 @@
 				minOccurs="0" maxOccurs="unbounded" />
 			<xs:element name="IsCombinedResut" type="xs:boolean"
 				minOccurs="1" maxOccurs="1" default="false" />
-			<xs:element name="images" type="xs:string" minOccurs="0"
-				maxOccurs="unbounded" />
+
+
+
+			<xs:element name="resources" type="tns:resource"
+				minOccurs="0" maxOccurs="unbounded" />
+
 			<xs:element name="physicalCharacteristics"
 				type="tns:languageString" minOccurs="0" maxOccurs="unbounded" />
 
@@ -255,6 +259,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+
 
 			<xs:element name="technique" type="tns:languageString"
 				minOccurs="0" maxOccurs="unbounded" />
@@ -299,6 +304,24 @@
 	<!-- < Extra Complex Types > -->
 
 
+	<xs:simpleType name="resourceType" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Video" />
+			<xs:enumeration value="Audio" />
+			<xs:enumeration value="3DModel" />
+			<xs:enumeration value="Image" />
+			<xs:enumeration value="Other" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="resource">
+		<xs:sequence>
+			<xs:element name="type" type="tns:resourceType"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="url" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
 
 	<xs:complexType name="relationLocations">
 		<xs:sequence>
@@ -313,10 +336,11 @@
 
 	<xs:complexType name="relationField">
 		<xs:sequence>
-			<xs:element name="fieldName" type="xs:string"
-				minOccurs="1" maxOccurs="1" />
-			<xs:element name="fieldValue" type="xs:string"
-				minOccurs="1" maxOccurs="1" />
+
+			<xs:element name="valueField" type="tns:valueField"
+				minOccurs="0" maxOccurs="unbounded" />
+
+
 			<xs:element name="targetResultId" type="xs:string"
 				minOccurs="1" maxOccurs="1" />
 		</xs:sequence>
@@ -379,6 +403,16 @@
 				maxOccurs="unbounded" />
 			<xs:element name="Language" type="xs:string" minOccurs="1"
 				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="valueField">
+		<xs:sequence>
+			<xs:element name="fieldName" type="xs:string"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="fieldValue" type="xs:string"
+				minOccurs="1" maxOccurs="1" />
 		</xs:sequence>
 	</xs:complexType>
 

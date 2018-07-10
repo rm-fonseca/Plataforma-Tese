@@ -48,6 +48,7 @@ public class DataController {
 		}
 		System.out.println();
 		List<Result> results = RepositoryController.Search(request);
+		workData(results,request.isDisableCombine(),request.isDisableRelation());
 
 
 		return results;
@@ -105,7 +106,7 @@ public class DataController {
 			String[] fields = ConfigurationPlatform.getParamtesRelation();
 
 			for (String field : fields)
-				threads.add(asyncRepositoriesCalls.findRelationsField(field, results));
+				threads.add(asyncRepositoriesCalls.findRelationsField(field.split("&"), results));
 
 			System.out.println("Start Wait");
 			CompletableFuture.allOf(threads.toArray(new CompletableFuture[0])).join();
