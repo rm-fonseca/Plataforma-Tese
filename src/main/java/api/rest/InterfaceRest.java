@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import Log.Log;
+import api.AppStarter;
 import dataController.DataController;
 import io.spring.guides.gs_producing_web_service.ListRepositoriesRequest;
 import io.spring.guides.gs_producing_web_service.ListRepositoriesResponse;
@@ -41,14 +43,36 @@ public class InterfaceRest {
 	@RequestMapping(value = "searchByTerm", method = RequestMethod.GET, produces = "application/json")
 	public SearchByTermResponse search(SearchByTermRequest request,
 			@RequestParam(required = false) List<Integer> repositories) {
+		 
+		
 		if (repositories != null)
 			request.getRepositories().addAll(repositories);
-		List<Result> results = DataController.Search(request);
+		
+		String command = "Rest searchByTerm\nTerm: " + request.getTerm() + "\n";
+		command += "DisableCombine: " + request.isDisableCombine() + "\n";
+		command += "isDisableRelation: " + request.isDisableRelation() + "\n";
+		command += "Repositories :";
+		
+		for(int i = 0; i < request.getRepositories().size() ; i++) {
+			command+= request.getRepositories().get(i) + " ";
+
+		}
+		
+		
+		Log log = new Log(command);
+
+		
+		
+		List<Result> results = DataController.Search(request,log);
 
 
 		SearchByTermResponse response = new SearchByTermResponse();
 		response.getResults().addAll(results);
 		response.setCount(results.size());
+		
+		log.Close();
+		AppStarter.logger.WriteToFile(log);
+		
 		return response;
 	}
 
@@ -64,11 +88,30 @@ public class InterfaceRest {
 			@RequestParam(required = false) List<Integer> repositories) {
 		if (repositories != null)
 			box.getRepositories().addAll(repositories);
-		List<Result> results = DataController.SearchBox(box);
+		
+		String command = "Rest searchByBox\nLatitudeFrom: " + box.getLatitudeFrom() + "\nLatitudeTo: " + box.getLatitudeTo() + "\n";
+		command += "LongitudeFrom: " + box.getLongitudeFrom() +   "\nLongitudeTo: " + box.getLongitudeTo() + "\n";
+		command += "DisableCombine: " + box.isDisableCombine() + "\n";
+		command += "isDisableRelation: " + box.isDisableRelation() + "\n";
+		command += "Repositories :";
+		
+		for(int i = 0; i < box.getRepositories().size() ; i++) {
+			command+= box.getRepositories().get(i) + " ";
+
+		}
+		
+		Log log = new Log(command);
+
+		
+		List<Result> results = DataController.SearchBox(box,log);
 		
 		SearchByBoxResponse response = new SearchByBoxResponse();
 		response.getResults().addAll(results);
 		response.setCount(results.size());
+		
+		log.Close();
+		AppStarter.logger.WriteToFile(log);
+		
 		return response;
 	}
 	
@@ -79,10 +122,18 @@ public class InterfaceRest {
 	@RequestMapping(value = "listRepositories", method = RequestMethod.GET, produces = "application/json")
 	public ListRepositoriesResponse listRepositories(ListRepositoriesRequest request) {
 
+		
+		Log log = new Log("List Repositories");
+
+		
 		List<Repository> results = RepositoryController.ListRepositories();
 
 		ListRepositoriesResponse response = new ListRepositoriesResponse();
 		response.getRepositories().addAll(results);
+		
+		log.Close();
+		AppStarter.logger.WriteToFile(log);
+		
 		return response;
 	}
 

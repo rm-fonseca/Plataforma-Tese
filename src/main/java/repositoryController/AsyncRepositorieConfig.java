@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import Log.Log;
 import io.spring.guides.gs_producing_web_service.Result;
 import io.spring.guides.gs_producing_web_service.SearchByBoxRequest;
 import io.spring.guides.gs_producing_web_service.SearchByTermRequest;
@@ -21,7 +23,7 @@ import io.spring.guides.gs_producing_web_service.SearchByTermRequest;
 @EnableAsync
 @Configuration
 public class AsyncRepositorieConfig {
-	
+
 	@Bean
 	public AsyncRepositoriesCalls myAsyncRepositoriesCalls() {
 		return new AsyncRepositoriesCalls();
@@ -34,31 +36,32 @@ public class AsyncRepositorieConfig {
 	@Qualifier("RepositoriesExecutor")
 	public Executor asyncExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(2);
-		executor.setMaxPoolSize(2);
+		executor.setCorePoolSize(8);
+		executor.setMaxPoolSize(8);
 		executor.setQueueCapacity(500);
 		executor.setThreadNamePrefix("Repositories-");
 		executor.initialize();
 		return executor;
 	}
 
-	
 	/*
 	 * Class with the calls to the repositories.
 	 */
 	public class AsyncRepositoriesCalls {
 
-		
 		/*
 		 * Call the search by box of a repositories in another thread
 		 */
-		
+
 		@Async("RepositoriesExecutor")
 		public CompletableFuture<Boolean> searchRepositorieBox(SearchByBoxRequest request,
-				RepositoryContainer container, List<Result> result) {
+				RepositoryContainer container, List<Result> result, Log log) {
 
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
+
+			log.newStep("Call to repository: " + container.getRepository().getName());
+
 			try {
 
 				List<Result> repositoriesResult = container.SearchByBox(request.getLatitudeFrom(),
@@ -72,26 +75,15 @@ public class AsyncRepositorieConfig {
 				System.out.println(
 						"Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
 				System.out.flush();
+				log.newStep("Successful call to " + container.getRepository().getName());
 
 				return CompletableFuture.completedFuture(true);
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
+					| IllegalArgumentException | InvocationTargetException e) {
+
+				int stepId = log.newStep("Error call to " + container.getRepository().getName());
+
+				log.addError(stepId, e);
 			}
 			System.out.println(
 					"Finished Unsucessefully method asynchronously - Name:" + Thread.currentThread().getName());
@@ -105,10 +97,12 @@ public class AsyncRepositorieConfig {
 		 */
 		@Async("RepositoriesExecutor")
 		public CompletableFuture<Boolean> searchRepositorieTerm(SearchByTermRequest request,
-				RepositoryContainer container, List<Result> result) {
+				RepositoryContainer container, List<Result> result, Log log) {
 
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
+
+			log.newStep("Call to repository: " + container.getRepository().getName());
 
 			try {
 
@@ -122,25 +116,15 @@ public class AsyncRepositorieConfig {
 				System.out.println(
 						"Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
 
+				log.newStep("Successful call to " + container.getRepository().getName());
+
 				return CompletableFuture.completedFuture(true);
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
+					| IllegalArgumentException | InvocationTargetException e) {
+
+				int stepId = log.newStep("Error call to " + container.getRepository().getName());
+
+				log.addError(stepId, e);
 			}
 			System.out.println(
 					"Finished Unsucessefully method asynchronously - Name:" + Thread.currentThread().getName());

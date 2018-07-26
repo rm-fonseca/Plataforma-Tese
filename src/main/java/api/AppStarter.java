@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import Log.Logger;
 import repositoryController.RepositoryController;
 
 /*
@@ -19,9 +20,13 @@ import repositoryController.RepositoryController;
 @SpringBootApplication
 public class AppStarter extends SpringBootServletInitializer {
 
-
+	public static Logger logger;
+	
+	
 	public static void main(String[] args) throws IOException {
 
+		logger = new Logger();
+		
 		RepositoryController.getRepositories();
 
 		

@@ -13,6 +13,7 @@ import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import Log.Log;
 import api.ConfigurationPlatform;
 import dataController.AsyncDataController.AsyncDataCalls;
 import io.spring.guides.gs_producing_web_service.LanguageString;
@@ -31,7 +32,7 @@ import repositoryController.AsyncRepositorieConfig.AsyncRepositoriesCalls;
  */
 public class DataController {
 
-	public static List<Result> Search(SearchByTermRequest request) {
+	public static List<Result> Search(SearchByTermRequest request, Log log) {
 
 		System.out.print("SearchByTerm Term=" + request.getTerm());
 
@@ -47,15 +48,15 @@ public class DataController {
 
 		}
 		System.out.println();
-		List<Result> results = RepositoryController.Search(request);
-		workData(results,request.isDisableCombine(),request.isDisableRelation());
+		List<Result> results = RepositoryController.Search(request,log);
+		workData(results,request.isDisableCombine(),request.isDisableRelation(),log);
 
 
 		return results;
 
 	}
 
-	public static List<Result> SearchBox(SearchByBoxRequest request) {
+	public static List<Result> SearchBox(SearchByBoxRequest request,Log log) {
 
 		System.out.print("SearchByBox LatitudeFrom=" + request.getLatitudeFrom());
 		System.out.print(" LatitudeTo=" + request.getLatitudeTo());
@@ -75,15 +76,15 @@ public class DataController {
 		}
 
 		System.out.println();
-		List<Result> results = RepositoryController.SearchBox(request);
+		List<Result> results = RepositoryController.SearchBox(request, log);
 
-		workData(results,request.isDisableCombine(),request.isDisableRelation());
+		workData(results,request.isDisableCombine(),request.isDisableRelation(),log);
 
 		return results;
 
 	}
 
-	private static void workData(List<Result> results, boolean disableCombine, boolean disableRelations) {
+	private static void workData(List<Result> results, boolean disableCombine, boolean disableRelations, Log log) {
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AsyncDataController.class);
 		AsyncDataCalls asyncRepositoriesCalls = context.getBean(AsyncDataCalls.class);
@@ -94,7 +95,7 @@ public class DataController {
 			String[] fields = ConfigurationPlatform.getParamtesCombineFields();
 
 			for (String field : fields)
-				asyncRepositoriesCalls.findRelationsFieldCombine(field.split("&"), results);
+				asyncRepositoriesCalls.findRelationsFieldCombine(field, results,log);
 
 		}
 
@@ -106,7 +107,7 @@ public class DataController {
 			String[] fields = ConfigurationPlatform.getParamtesRelation();
 
 			for (String field : fields)
-				threads.add(asyncRepositoriesCalls.findRelationsField(field.split("&"), results));
+				threads.add(asyncRepositoriesCalls.findRelationsField(field, results,log));
 
 			System.out.println("Start Wait");
 			CompletableFuture.allOf(threads.toArray(new CompletableFuture[0])).join();

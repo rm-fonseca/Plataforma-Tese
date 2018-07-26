@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import Log.Log;
 import api.ConfigurationPlatform;
 import io.spring.guides.gs_producing_web_service.LanguageString;
 import io.spring.guides.gs_producing_web_service.Location;
@@ -172,7 +173,8 @@ public class AsyncDataController {
 		}
 
 		@Async("DataControllerExecutor")
-		CompletableFuture<Void> findRelationsField2(String field, List<Result> resultList) {
+		CompletableFuture<Void> findRelationsField2(String field, List<Result> resultList) throws NoSuchMethodException,
+				SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
@@ -236,104 +238,118 @@ public class AsyncDataController {
 		}
 
 		@Async("DataControllerExecutor")
-		CompletableFuture<Void> findRelationsField(String fields[], List<Result> resultList) {
+		CompletableFuture<Void> findRelationsField(String fieldsString, List<Result> resultList, Log log) {
+
+			int idStep = log.newStep("Relation: " + fieldsString);
+
+			String fields[] = fieldsString.split("&");
 
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
 
-			boolean found = false;
+			try {
 
-			String field;
-			boolean[] fieldValidation = new boolean[fields.length];
+				boolean found = false;
 
-			for (int i = 0; i < resultList.size() - 1; i++) {
+				String field;
+				boolean[] fieldValidation = new boolean[fields.length];
 
-				for (int j = i + 1; j < resultList.size(); j++) {
+				for (int i = 0; i < resultList.size() - 1; i++) {
 
-					for (int fieldValidationCounter = 0; fieldValidationCounter < fields.length; fieldValidationCounter++)
-						fieldValidation[fieldValidationCounter] = false;
+					for (int j = i + 1; j < resultList.size(); j++) {
 
-					Result result1 = resultList.get(i);
-					Result result2 = resultList.get(j);
+						for (int fieldValidationCounter = 0; fieldValidationCounter < fields.length; fieldValidationCounter++)
+							fieldValidation[fieldValidationCounter] = false;
 
-					int fieldCounter;
+						Result result1 = resultList.get(i);
+						Result result2 = resultList.get(j);
 
-					RelationField rel1 = new RelationField();
-					RelationField rel2 = new RelationField();
+						int fieldCounter;
 
-					for (fieldCounter = 0; fieldCounter < fields.length; fieldCounter++) {
+						RelationField rel1 = new RelationField();
+						RelationField rel2 = new RelationField();
 
-						field = fields[fieldCounter];
+						for (fieldCounter = 0; fieldCounter < fields.length; fieldCounter++) {
 
-						List<LanguageString> result1Lang = findField(field, result1);
+							field = fields[fieldCounter];
 
-						if (result1Lang == null || result1Lang.size() == 0)
-							break;
+							List<LanguageString> result1Lang;
+							result1Lang = findField(field, result1);
 
-						List<LanguageString> result2Lang = findField(field, result2);
+							if (result1Lang == null || result1Lang.size() == 0)
+								break;
 
-						if (result2Lang == null || result2Lang.size() == 0)
-							break;
+							List<LanguageString> result2Lang = findField(field, result2);
 
-						found = false;
+							if (result2Lang == null || result2Lang.size() == 0)
+								break;
 
-						for (LanguageString langString1 : result1Lang) {
+							found = false;
 
-							for (LanguageString langString2 : result2Lang) {
+							for (LanguageString langString1 : result1Lang) {
 
-								if (langString1.getLanguage().equalsIgnoreCase(langString2.getLanguage())) {
+								for (LanguageString langString2 : result2Lang) {
 
-									for (String lang1text : langString1.getText()) {
+									if (langString1.getLanguage().equalsIgnoreCase(langString2.getLanguage())) {
 
-										for (String lang2text : langString2.getText()) {
+										for (String lang1text : langString1.getText()) {
 
-											if (lang1text.equalsIgnoreCase(lang2text)) {
+											for (String lang2text : langString2.getText()) {
 
-												ValueField vf = new ValueField();
+												if (lang1text.equalsIgnoreCase(lang2text)) {
 
-												vf.setFieldName(field);
-												vf.setFieldValue(lang1text);
+													ValueField vf = new ValueField();
 
-												rel1.getValueField().add(vf);
+													vf.setFieldName(field);
+													vf.setFieldValue(lang1text);
 
-												fieldValidation[fieldCounter] = true;
-												found = true;
+													rel1.getValueField().add(vf);
+
+													fieldValidation[fieldCounter] = true;
+													found = true;
+												}
+
 											}
-
+											if (found)
+												break;
 										}
-										if (found)
-											break;
-									}
 
+									}
+									if (found)
+										break;
 								}
 								if (found)
 									break;
 							}
-							if (found)
+
+							if (!fieldValidation[fieldCounter])
 								break;
+
+							if (fieldCounter == fields.length - 1) {
+
+								rel1.setTargetResultId(result2.getSourceData().get(0));
+								rel2.setTargetResultId(result1.getSourceData().get(0));
+
+								synchronized (result1) {
+									result1.getRelationsByFields().add(rel1);
+								}
+
+								synchronized (result2) {
+									result2.getRelationsByFields().add(rel2);
+								}
+
+							}
 						}
 
-						if (!fieldValidation[fieldCounter])
-							break;
-
-						if (fieldCounter == fields.length - 1) {
-
-							rel1.setTargetResultId(result2.getSourceData().get(0));
-							rel2.setTargetResultId(result1.getSourceData().get(0));
-
-							synchronized (result1) {
-								result1.getRelationsByFields().add(rel1);
-							}
-
-							synchronized (result2) {
-								result2.getRelationsByFields().add(rel2);
-							}
-
-						}
 					}
-
 				}
+
+			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				log.addError(idStep, e);
+
 			}
+
 			System.out
 					.println("Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
 			System.out.flush();
@@ -342,86 +358,102 @@ public class AsyncDataController {
 
 		}
 
-		public void findRelationsFieldCombine(String[] fields, List<Result> resultList) {
-			boolean found = false;
+		public void findRelationsFieldCombine(String fieldsString, List<Result> resultList, Log log) {
 
-			String field;
-			boolean[] fieldValidation = new boolean[fields.length];
+			int idStep = log.newStep("Combine: " + fieldsString);
 
-			for (int i = 0; i < resultList.size() - 1; i++) {
+			try {
 
-				for (int j = i + 1; j < resultList.size(); j++) {
+				String[] fields = fieldsString.split("&");
 
-					for (int fieldValidationCounter = 0; fieldValidationCounter < fields.length; fieldValidationCounter++)
-						fieldValidation[fieldValidationCounter] = false;
+				boolean found = false;
 
-					Result result1 = resultList.get(i);
-					Result result2 = resultList.get(j);
+				String field;
+				boolean[] fieldValidation = new boolean[fields.length];
 
-					int fieldCounter;
+				for (int i = 0; i < resultList.size() - 1; i++) {
 
-					for (fieldCounter = 0; fieldCounter < fields.length; fieldCounter++) {
+					for (int j = i + 1; j < resultList.size(); j++) {
 
-						field = fields[fieldCounter];
+						for (int fieldValidationCounter = 0; fieldValidationCounter < fields.length; fieldValidationCounter++)
+							fieldValidation[fieldValidationCounter] = false;
 
-						List<LanguageString> result1Lang = findField(field, result1);
+						Result result1 = resultList.get(i);
+						Result result2 = resultList.get(j);
 
-						if (result1Lang == null || result1Lang.size() == 0)
-							break;
+						int fieldCounter;
 
-						List<LanguageString> result2Lang = findField(field, result2);
+						for (fieldCounter = 0; fieldCounter < fields.length; fieldCounter++) {
 
-						if (result2Lang == null || result2Lang.size() == 0)
-							break;
+							field = fields[fieldCounter];
 
-						found = false;
+							List<LanguageString> result1Lang;
 
-						for (LanguageString langString1 : result1Lang) {
+							result1Lang = findField(field, result1);
 
-							for (LanguageString langString2 : result2Lang) {
+							if (result1Lang == null || result1Lang.size() == 0)
+								break;
 
-								if (langString1.getLanguage().equalsIgnoreCase(langString2.getLanguage())) {
+							List<LanguageString> result2Lang = findField(field, result2);
 
-									for (String lang1text : langString1.getText()) {
+							if (result2Lang == null || result2Lang.size() == 0)
+								break;
 
-										for (String lang2text : langString2.getText()) {
+							found = false;
 
-											if (lang1text.equalsIgnoreCase(lang2text)) {
+							for (LanguageString langString1 : result1Lang) {
 
-												fieldValidation[fieldCounter] = true;
-												found = true;
+								for (LanguageString langString2 : result2Lang) {
+
+									if (langString1.getLanguage().equalsIgnoreCase(langString2.getLanguage())) {
+
+										for (String lang1text : langString1.getText()) {
+
+											for (String lang2text : langString2.getText()) {
+
+												if (lang1text.equalsIgnoreCase(lang2text)) {
+
+													fieldValidation[fieldCounter] = true;
+													found = true;
+												}
+
 											}
-
+											if (found)
+												break;
 										}
-										if (found)
-											break;
-									}
 
+									}
+									if (found)
+										break;
 								}
 								if (found)
 									break;
 							}
-							if (found)
+
+							if (!fieldValidation[fieldCounter])
 								break;
+
+							if (fieldCounter == fields.length - 1) {
+								joinResults(result1, result2);
+								resultList.remove(j);
+								j--;
+								result1.setIsCombinedResut(true);
+							}
 						}
 
-						if (!fieldValidation[fieldCounter])
-							break;
-
-						if (fieldCounter == fields.length - 1) {
-							joinResults(result1, result2);
-							resultList.remove(j);
-							j--;
-							result1.setIsCombinedResut(true);
-						}
 					}
-
 				}
+			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+
+				log.addError(idStep, e);
+
 			}
 
 		}
 
-		private List<LanguageString> findField(String fieldPath, Result result) {
+		private List<LanguageString> findField(String fieldPath, Result result) throws NoSuchMethodException,
+				SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
 			if (fieldPath.length() == 0)
 				return null;
@@ -434,59 +466,40 @@ public class AsyncDataController {
 			List<Object> values = null, baseObjects;
 			baseObjects = new ArrayList<>();
 			baseObjects.add(result);
-			try {
-				for (String field : fieldsNames) {
-					values = new ArrayList<>();
-					methodName = "get" + field;
-					for (Object baseObject : baseObjects) {
 
-						aClass = baseObject.getClass();
+			for (String field : fieldsNames) {
+				values = new ArrayList<>();
+				methodName = "get" + field;
+				for (Object baseObject : baseObjects) {
 
-						method = aClass.getMethod(methodName);
-						value = method.invoke(baseObject);
+					aClass = baseObject.getClass();
 
-						if (value instanceof List<?>) {
-							List<Object> list = (List<Object>) value;
+					method = aClass.getMethod(methodName);
+					value = method.invoke(baseObject);
 
-							for (Object valueInList : list) {
-								values.add(valueInList);
-							}
+					if (value instanceof List<?>) {
+						List<Object> list = (List<Object>) value;
 
-						} else
-							values.add(value);
+						for (Object valueInList : list) {
+							values.add(valueInList);
+						}
 
-					}
-
-					baseObjects = values;
+					} else
+						values.add(value);
 
 				}
 
-				List<LanguageString> languageStringValues = new ArrayList<>();
+				baseObjects = values;
 
-				for (Object object : values) {
-					languageStringValues.add((LanguageString) object);
-				}
-
-				return languageStringValues;
-
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 
-			return null;
+			List<LanguageString> languageStringValues = new ArrayList<>();
+
+			for (Object object : values) {
+				languageStringValues.add((LanguageString) object);
+			}
+
+			return languageStringValues;
 
 		}
 

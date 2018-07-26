@@ -2,6 +2,7 @@ package repositoryController;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +13,8 @@ import java.util.concurrent.Future;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import Log.Log;
+import api.AppStarter;
 import io.spring.guides.gs_producing_web_service.Repository;
 import io.spring.guides.gs_producing_web_service.Result;
 import io.spring.guides.gs_producing_web_service.SearchByBoxRequest;
@@ -29,7 +32,7 @@ public class RepositoryController {
 	/*
 	 * Divides the search by term for all the repositories selected
 	 */
-	public static List<Result> Search(SearchByTermRequest request) {
+	public static List<Result> Search(SearchByTermRequest request, Log log) {
 
 		List<Result> result = new ArrayList<>();
 
@@ -55,7 +58,7 @@ public class RepositoryController {
 			// Call Search by term on all repositories that are allowed to
 			for (RepositoryContainer container : repositories.values()) {
 				if (container.getRepository().isSearchByTerm())
-					threads.add(bean.searchRepositorieTerm(request, container, result));
+					threads.add(bean.searchRepositorieTerm(request, container, result,log));
 
 			}
 		else
@@ -67,7 +70,7 @@ public class RepositoryController {
 				if (container == null || !container.getRepository().isSearchByTerm())
 					continue;
 
-				threads.add(bean.searchRepositorieTerm(request, container, result));
+				threads.add(bean.searchRepositorieTerm(request, container, result,log));
 
 			}
 
@@ -82,9 +85,7 @@ public class RepositoryController {
 	/*
 	 * Divides the search by box for all the repositories selected
 	 */
-	public static List<Result> SearchBox(SearchByBoxRequest request) {
-
-	
+	public static List<Result> SearchBox(SearchByBoxRequest request,Log log) {
 
 		List<Result> result = new ArrayList<>();
 
@@ -109,7 +110,7 @@ public class RepositoryController {
 			// Call Search by box on all repositories that are allowed to
 			for (RepositoryContainer container : repositories.values()) {
 				if (container.getRepository().isSearchByBox())
-					threads.add(asyncCalls.searchRepositorieBox(request, container, result));
+					threads.add(asyncCalls.searchRepositorieBox(request, container, result,log));
 
 			}
 		else
@@ -121,7 +122,7 @@ public class RepositoryController {
 				if (container == null || !container.getRepository().isSearchByBox())
 					continue;
 
-				threads.add(asyncCalls.searchRepositorieBox(request, container, result));
+				threads.add(asyncCalls.searchRepositorieBox(request, container, result,log));
 
 			}
 		// Wait for all the threads to finishe processing the requests.
@@ -154,6 +155,8 @@ public class RepositoryController {
 	 */
 	public static void getRepositories() {
 
+		Log log = new Log("Load Repositories Jar");
+
 		repositories = new HashMap<Integer, RepositoryContainer>();
 
 		File dir = new File("Repositorios");
@@ -165,19 +168,26 @@ public class RepositoryController {
 			}
 		});
 
-		for (File xmlfile : files) {
+		for (File file : files) {
+
+			int stepId = log.newStep("Add jar " + file.getName());
 
 			RepositoryContainer repCont;
 			try {
-				repCont = new RepositoryContainer(xmlfile);
+				repCont = new RepositoryContainer(file);
 				repositories.put(repCont.getRepository().getID(), repCont);
-			} catch (MalformedURLException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (ClassNotFoundException | IOException e) {
+
+				log.addError(stepId, e);
+
 			}
 
 		}
+			
 
+		log.Close();
+		AppStarter.logger.WriteToFile(log);
+		
 	}
 
 }

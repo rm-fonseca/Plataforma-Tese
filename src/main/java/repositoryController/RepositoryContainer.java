@@ -30,7 +30,7 @@ public class RepositoryContainer {
 	private Repository rep;
 
 	@SuppressWarnings("unchecked")
-	public RepositoryContainer(File filename) throws MalformedURLException, ClassNotFoundException {
+	public RepositoryContainer(File filename) throws ClassNotFoundException, IOException {
 
 		URL[] classLoaderUrls;
 		System.out.println();
@@ -79,16 +79,16 @@ public class RepositoryContainer {
 			rep.setSearchByBox(Boolean.parseBoolean(prop.getProperty("SearchByBox", "false")));
 
 		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
+			
 			if (input != null) {
 				try {
 					input.close();
 				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
-		}
+			throw ex;
+		} 
+		
 
 	}
 
