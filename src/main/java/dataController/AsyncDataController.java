@@ -19,13 +19,12 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import Log.Log;
 import api.ConfigurationPlatform;
-import io.spring.guides.gs_producing_web_service.LanguageString;
-import io.spring.guides.gs_producing_web_service.Location;
-import io.spring.guides.gs_producing_web_service.RelationField;
-import io.spring.guides.gs_producing_web_service.RelationLocations;
-import io.spring.guides.gs_producing_web_service.Result;
-import io.spring.guides.gs_producing_web_service.ValueField;
-import repositoryController.AsyncRepositorieConfig.AsyncRepositoriesCalls;
+import plataforma.modelointerno.LanguageString;
+import plataforma.modelointerno.Location;
+import plataforma.modelointerno.RelationField;
+import plataforma.modelointerno.RelationLocations;
+import plataforma.modelointerno.Result;
+import plataforma.modelointerno.ValueField;
 
 @EnableAsync
 @Configuration
@@ -59,8 +58,14 @@ public class AsyncDataController {
 		 */
 
 		@Async("DataControllerExecutor")
-		CompletableFuture<Void> findRelationsCoordinates(List<Result> resultList) {
+		CompletableFuture<Void> findRelationsCoordinates(List<Result> resultList, Log log) {
 
+			int idStep = log.newStep("Relation by Cordinates");
+
+			try {
+				
+			
+			
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
 
@@ -163,78 +168,17 @@ public class AsyncDataController {
 			System.out
 					.println("Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
 			System.out.flush();
+			}catch(Exception e) {
+				log.addError(idStep, e);
 
+			}
+			
 			return CompletableFuture.completedFuture(null);
 
 		}
 
 		private boolean inBetween(float value, float minValue, float maxValue) {
 			return value <= maxValue && value >= minValue;
-		}
-
-		@Async("DataControllerExecutor")
-		CompletableFuture<Void> findRelationsField2(String field, List<Result> resultList) throws NoSuchMethodException,
-				SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-
-			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
-					+ Thread.currentThread().getId());
-
-			boolean found = false;
-
-			for (int i = 0; i < resultList.size() - 1; i++) {
-
-				Result result1 = resultList.get(i);
-
-				List<LanguageString> result1Lang = findField(field, result1);
-
-				if (result1Lang == null || result1Lang.size() == 0)
-					break;
-
-				for (int j = i + 1; j < resultList.size(); j++) {
-
-					Result result2 = resultList.get(j);
-					List<LanguageString> result2Lang = findField(field, result2);
-
-					if (result2Lang == null || result2Lang.size() == 0)
-						break;
-
-					found = false;
-
-					for (LanguageString langString1 : result1Lang) {
-
-						for (LanguageString langString2 : result2Lang) {
-
-							if (langString1.getLanguage().equalsIgnoreCase(langString2.getLanguage())) {
-
-								for (String lang1text : langString1.getText()) {
-
-									for (String lang2text : langString2.getText()) {
-
-										if (lang1text.equalsIgnoreCase(lang2text)) {
-
-										}
-
-									}
-									if (found)
-										break;
-								}
-
-							}
-							if (found)
-								break;
-						}
-						if (found)
-							break;
-					}
-
-				}
-			}
-			System.out
-					.println("Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
-			System.out.flush();
-
-			return CompletableFuture.completedFuture(null);
-
 		}
 
 		@Async("DataControllerExecutor")
@@ -344,8 +288,7 @@ public class AsyncDataController {
 					}
 				}
 
-			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException e) {
+			} catch (Exception e) {
 				log.addError(idStep, e);
 
 			}
@@ -443,8 +386,7 @@ public class AsyncDataController {
 
 					}
 				}
-			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException e) {
+			} catch (Exception e) {
 
 				log.addError(idStep, e);
 

@@ -1,0 +1,756 @@
+sep=,
+Start Date, End Date, Command, Steps, Times, Error List
+2018-07-24 13:53:40.044","2018-07-24 13:53:40.053","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-24 13:53:40.044
+2 - 2018-07-24 13:53:40.048
+3 - 2018-07-24 13:53:40.049
+4 - 2018-07-24 13:53:40.051
+",""
+2018-07-24 14:01:27.508","2018-07-24 14:01:27.509","List Repositories","","",""
+2018-07-24 14:01:17.818","2018-07-24 14:01:31.073","Rest searchByTerm
+Term: cup
+DisableCombine: true
+isDisableRelation: false
+Repositories :","1 - Call to repository: Cultura Casas Religiosas
+2 - Call to repository: Europeana
+3 - Call to repository: The Fitzwilliam Museum
+4 - Call to repository: DigitalNZ
+5 - Relation: Locations-Name
+6 - Relation: DcTitle
+","1 - 2018-07-24 14:01:17.883
+2 - 2018-07-24 14:01:17.884
+3 - 2018-07-24 14:01:17.884
+4 - 2018-07-24 14:01:17.884
+5 - 2018-07-24 14:01:31.061
+6 - 2018-07-24 14:01:31.061
+",""
+2018-07-24 14:02:14.819","2018-07-24 14:03:28.050","Rest searchByBox
+LatitudeFrom: 44
+LatitudeTo: 48
+LongitudeFrom: 6
+LongitudeTo: 8
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: Europeana
+2 - Combine: DcRights
+3 - Relation: DcTitle
+4 - Relation: Locations-Name
+","1 - 2018-07-24 14:02:14.860
+2 - 2018-07-24 14:03:27.040
+3 - 2018-07-24 14:03:27.044
+4 - 2018-07-24 14:03:27.051
+",""
+2018-07-25 00:13:40.915","2018-07-25 00:13:41.424","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-25 00:13:40.920
+2 - 2018-07-25 00:13:41.064
+3 - 2018-07-25 00:13:41.174
+4 - 2018-07-25 00:13:41.297
+",""
+2018-07-25 00:13:51.436","2018-07-25 00:14:12.202","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: Cultura Casas Religiosas
+2 - Call to repository: Europeana
+3 - Call to repository: The Fitzwilliam Museum
+4 - Call to repository: DigitalNZ
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Successful call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation: Locations-Name
+11 - Relation: DcTitle
+","1 - 2018-07-25 00:13:51.552
+2 - 2018-07-25 00:13:51.553
+3 - 2018-07-25 00:13:51.553
+4 - 2018-07-25 00:13:51.554
+5 - 2018-07-25 00:13:52.630
+6 - 2018-07-25 00:13:53.353
+7 - 2018-07-25 00:13:56.613
+8 - 2018-07-25 00:14:12.028
+9 - 2018-07-25 00:14:12.147
+10 - 2018-07-25 00:14:12.169
+11 - 2018-07-25 00:14:12.170
+",""
+2018-07-26 15:25:39.929","2018-07-26 15:25:40.505","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 15:25:39.937
+2 - 2018-07-26 15:25:40.169
+3 - 2018-07-26 15:25:40.329
+4 - 2018-07-26 15:25:40.336
+",""
+2018-07-26 16:36:34.538","2018-07-26 16:36:34.552","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 16:36:34.539
+2 - 2018-07-26 16:36:34.543
+3 - 2018-07-26 16:36:34.546
+4 - 2018-07-26 16:36:34.550
+",""
+2018-07-26 16:36:52.933","2018-07-26 16:36:52.933","List Repositories","","",""
+2018-07-26 17:12:12.578","2018-07-26 17:12:12.589","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 17:12:12.578
+2 - 2018-07-26 17:12:12.584
+3 - 2018-07-26 17:12:12.585
+4 - 2018-07-26 17:12:12.588
+",""
+2018-07-26 17:15:13.322","2018-07-26 17:15:13.331","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 17:15:13.322
+2 - 2018-07-26 17:15:13.326
+3 - 2018-07-26 17:15:13.327
+4 - 2018-07-26 17:15:13.329
+",""
+2018-07-26 17:26:14.132","2018-07-26 17:26:14.141","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 17:26:14.132
+2 - 2018-07-26 17:26:14.136
+3 - 2018-07-26 17:26:14.138
+4 - 2018-07-26 17:26:14.140
+",""
+2018-07-26 17:28:38.762","2018-07-26 17:28:38.771","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 17:28:38.762
+2 - 2018-07-26 17:28:38.766
+3 - 2018-07-26 17:28:38.767
+4 - 2018-07-26 17:28:38.769
+",""
+2018-07-26 17:29:35.086","2018-07-26 17:29:51.386","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: Europeana
+2 - Call to repository: The Fitzwilliam Museum
+3 - Call to repository: DigitalNZ
+4 - Call to repository: Cultura Casas Religiosas
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Successful call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation by Cordinates
+11 - Relation: DcTitle
+12 - Relation: Locations-Name
+","1 - 2018-07-26 17:29:35.147
+2 - 2018-07-26 17:29:35.147
+3 - 2018-07-26 17:29:35.147
+4 - 2018-07-26 17:29:35.147
+5 - 2018-07-26 17:29:35.955
+6 - 2018-07-26 17:29:36.431
+7 - 2018-07-26 17:29:37.154
+8 - 2018-07-26 17:29:51.329
+9 - 2018-07-26 17:29:51.380
+10 - 2018-07-26 17:29:51.383
+11 - 2018-07-26 17:29:51.384
+12 - 2018-07-26 17:29:51.384
+","9
+java.lang.ClassCastException: io.spring.guides.gs_producing_web_service.Result cannot be cast to plataforma.modelointerno.Result
+	at dataController.AsyncDataController$AsyncDataCalls.findRelationsFieldCombine(AsyncDataController.java:378)
+	at dataController.AsyncDataController$AsyncDataCalls$$FastClassBySpringCGLIB$$2e7b09d9.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at dataController.AsyncDataController$AsyncDataCalls$$EnhancerBySpringCGLIB$$1ea7b564.findRelationsFieldCombine(<generated>)
+	at dataController.DataController.workData(DataController.java:98)
+	at dataController.DataController.Search(DataController.java:52)
+	at api.rest.InterfaceRest.search(InterfaceRest.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:136)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:877)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:783)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:866)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:687)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:84)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:62)
+	at io.undertow.servlet.handlers.ServletChain$1.handleRequest(ServletChain.java:64)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:132)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77)
+	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:292)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$100(ServletInitialHandler.java:81)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:138)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:135)
+	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48)
+	at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:272)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:81)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:104)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:336)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:830)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+10
+java.lang.ClassCastException: io.spring.guides.gs_producing_web_service.Result cannot be cast to plataforma.modelointerno.Result
+	at dataController.AsyncDataController$AsyncDataCalls.findRelationsCoordinates(AsyncDataController.java:77)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:197)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.interceptor.AsyncExecutionInterceptor.lambda$invoke$0(AsyncExecutionInterceptor.java:115)
+	at org.springframework.aop.interceptor.AsyncExecutionAspectSupport.lambda$doSubmit$0(AsyncExecutionAspectSupport.java:270)
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1590)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+12
+java.lang.ClassCastException: io.spring.guides.gs_producing_web_service.Result cannot be cast to plataforma.modelointerno.Result
+	at dataController.AsyncDataController$AsyncDataCalls.findRelationsField(AsyncDataController.java:262)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:197)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.interceptor.AsyncExecutionInterceptor.lambda$invoke$0(AsyncExecutionInterceptor.java:115)
+	at org.springframework.aop.interceptor.AsyncExecutionAspectSupport.lambda$doSubmit$0(AsyncExecutionAspectSupport.java:270)
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1590)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+11
+java.lang.ClassCastException: io.spring.guides.gs_producing_web_service.Result cannot be cast to plataforma.modelointerno.Result
+	at dataController.AsyncDataController$AsyncDataCalls.findRelationsField(AsyncDataController.java:262)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:197)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.interceptor.AsyncExecutionInterceptor.lambda$invoke$0(AsyncExecutionInterceptor.java:115)
+	at org.springframework.aop.interceptor.AsyncExecutionAspectSupport.lambda$doSubmit$0(AsyncExecutionAspectSupport.java:270)
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1590)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+"
+2018-07-26 21:48:59.251","2018-07-26 21:48:59.412","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 21:48:59.251
+2 - 2018-07-26 21:48:59.395
+3 - 2018-07-26 21:48:59.401
+4 - 2018-07-26 21:48:59.407
+",""
+2018-07-26 21:49:49.190","2018-07-26 21:49:49.190","List Repositories","","",""
+2018-07-26 21:49:50.830","2018-07-26 21:52:58.979","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: DigitalNZ
+2 - Call to repository: The Fitzwilliam Museum
+3 - Call to repository: Europeana
+4 - Call to repository: Cultura Casas Religiosas
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Successful call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation by Cordinates
+11 - Relation: DcTitle
+12 - Relation: Locations-Name
+","1 - 2018-07-26 21:49:50.902
+2 - 2018-07-26 21:49:50.903
+3 - 2018-07-26 21:49:50.903
+4 - 2018-07-26 21:49:50.903
+5 - 2018-07-26 21:49:57.552
+6 - 2018-07-26 21:50:02.502
+7 - 2018-07-26 21:50:03.444
+8 - 2018-07-26 21:52:58.915
+9 - 2018-07-26 21:52:58.955
+10 - 2018-07-26 21:52:58.976
+11 - 2018-07-26 21:52:58.976
+12 - 2018-07-26 21:52:58.976
+",""
+2018-07-26 22:36:27.309","2018-07-26 22:36:27.318","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 22:36:27.310
+2 - 2018-07-26 22:36:27.313
+3 - 2018-07-26 22:36:27.314
+4 - 2018-07-26 22:36:27.316
+",""
+2018-07-26 22:53:50.995","2018-07-26 22:53:51.003","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 22:53:50.996
+2 - 2018-07-26 22:53:51.000
+3 - 2018-07-26 22:53:51.001
+4 - 2018-07-26 22:53:51.002
+",""
+2018-07-26 22:53:54.346","2018-07-26 22:54:12.818","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: DigitalNZ
+2 - Call to repository: Europeana
+3 - Call to repository: The Fitzwilliam Museum
+4 - Call to repository: Cultura Casas Religiosas
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Successful call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation by Cordinates
+11 - Relation: Locations-Name
+12 - Relation: DcTitle
+","1 - 2018-07-26 22:53:54.399
+2 - 2018-07-26 22:53:54.399
+3 - 2018-07-26 22:53:54.399
+4 - 2018-07-26 22:53:54.399
+5 - 2018-07-26 22:53:55.204
+6 - 2018-07-26 22:53:55.734
+7 - 2018-07-26 22:54:01.836
+8 - 2018-07-26 22:54:12.758
+9 - 2018-07-26 22:54:12.794
+10 - 2018-07-26 22:54:12.815
+11 - 2018-07-26 22:54:12.815
+12 - 2018-07-26 22:54:12.815
+",""
+2018-07-26 22:58:30.179","2018-07-26 22:58:32.552","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :2 ","1 - Call to repository: The Fitzwilliam Museum
+2 - Successful call to The Fitzwilliam Museum
+3 - Combine: DcRights
+4 - Relation by Cordinates
+5 - Relation: DcTitle
+6 - Relation: Locations-Name
+","1 - 2018-07-26 22:58:30.219
+2 - 2018-07-26 22:58:32.525
+3 - 2018-07-26 22:58:32.547
+4 - 2018-07-26 22:58:32.551
+5 - 2018-07-26 22:58:32.551
+6 - 2018-07-26 22:58:32.551
+",""
+2018-07-26 22:58:53.278","2018-07-26 22:58:57.582","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :3 ","1 - Call to repository: DigitalNZ
+2 - Successful call to DigitalNZ
+3 - Combine: DcRights
+4 - Relation by Cordinates
+5 - Relation: Locations-Name
+6 - Relation: DcTitle
+","1 - 2018-07-26 22:58:53.299
+2 - 2018-07-26 22:58:57.561
+3 - 2018-07-26 22:58:57.577
+4 - 2018-07-26 22:58:57.581
+5 - 2018-07-26 22:58:57.581
+6 - 2018-07-26 22:58:57.581
+",""
+2018-07-26 22:58:03.785","2018-07-26 23:00:01.339","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :1 ","1 - Call to repository: Europeana
+2 - Successful call to Europeana
+3 - Combine: DcRights
+4 - Relation by Cordinates
+5 - Relation: DcTitle
+6 - Relation: Locations-Name
+","1 - 2018-07-26 22:58:03.821
+2 - 2018-07-26 23:00:01.322
+3 - 2018-07-26 23:00:01.337
+4 - 2018-07-26 23:00:01.337
+5 - 2018-07-26 23:00:01.338
+6 - 2018-07-26 23:00:01.338
+",""
+2018-07-26 23:03:06.664","2018-07-26 23:03:06.672","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-26 23:03:06.664
+2 - 2018-07-26 23:03:06.668
+3 - 2018-07-26 23:03:06.669
+4 - 2018-07-26 23:03:06.671
+",""
+2018-07-26 23:04:03.247","2018-07-26 23:04:51.262","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: Cultura Casas Religiosas
+2 - Call to repository: The Fitzwilliam Museum
+3 - Call to repository: DigitalNZ
+4 - Call to repository: Europeana
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Error call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation: DcTitle
+11 - Relation: Locations-Name
+12 - Relation by Cordinates
+","1 - 2018-07-26 23:04:03.300
+2 - 2018-07-26 23:04:03.301
+3 - 2018-07-26 23:04:03.301
+4 - 2018-07-26 23:04:03.301
+5 - 2018-07-26 23:04:04.974
+6 - 2018-07-26 23:04:06.969
+7 - 2018-07-26 23:04:08.521
+8 - 2018-07-26 23:04:51.141
+9 - 2018-07-26 23:04:51.224
+10 - 2018-07-26 23:04:51.251
+11 - 2018-07-26 23:04:51.253
+12 - 2018-07-26 23:04:51.260
+","7
+org.springframework.web.client.ResourceAccessException: I/O error on GET request for ""http://api.digitalnz.org/v3/records.json"": Este Ã© geralmente um erro temporÃ¡rio durante a resoluÃ§Ã£o de nomes de anfitriÃ£o e significa que o servidor local nÃ£o recebeu uma resposta de um servidor autoritÃ¡rio (api.digitalnz.org); nested exception is java.net.UnknownHostException: Este Ã© geralmente um erro temporÃ¡rio durante a resoluÃ§Ã£o de nomes de anfitriÃ£o e significa que o servidor local nÃ£o recebeu uma resposta de um servidor autoritÃ¡rio (api.digitalnz.org)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:741)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:684)
+	at org.springframework.web.client.RestTemplate.getForObject(RestTemplate.java:332)
+	at repository.Repositorio.SearchByTerm(Repositorio.java:46)
+	at repositoryController.RepositoryContainer.SearchByTerm(RepositoryContainer.java:89)
+	at repositoryController.AsyncRepositorieConfig$AsyncRepositoriesCalls.searchRepositorieTerm(AsyncRepositorieConfig.java:108)
+	at repositoryController.AsyncRepositorieConfig$AsyncRepositoriesCalls$$FastClassBySpringCGLIB$$59023a5c.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.interceptor.AsyncExecutionInterceptor.lambda$invoke$0(AsyncExecutionInterceptor.java:115)
+	at org.springframework.aop.interceptor.AsyncExecutionAspectSupport.lambda$doSubmit$0(AsyncExecutionAspectSupport.java:270)
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1590)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.UnknownHostException: Este Ã© geralmente um erro temporÃ¡rio durante a resoluÃ§Ã£o de nomes de anfitriÃ£o e significa que o servidor local nÃ£o recebeu uma resposta de um servidor autoritÃ¡rio (api.digitalnz.org)
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:928)
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1323)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1276)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1192)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1126)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:45)
+	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:112)
+	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:373)
+	at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:381)
+	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:237)
+	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:185)
+	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:89)
+	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:111)
+	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
+	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:87)
+	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:53)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:727)
+	... 15 more
+
+"
+"2018-07-27 13:05:34.493","2018-07-27 13:05:34.828","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-27 13:05:34.498
+2 - 2018-07-27 13:05:34.623
+3 - 2018-07-27 13:05:34.625
+4 - 2018-07-27 13:05:34.733
+",""
+"2018-07-27 13:06:52.560","2018-07-27 13:07:15.319","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: The Fitzwilliam Museum
+2 - Call to repository: Cultura Casas Religiosas
+3 - Call to repository: Europeana
+4 - Call to repository: DigitalNZ
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Successful call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation by Cordinates
+11 - Relation: DcTitle
+12 - Relation: Locations-Name
+","1 - 2018-07-27 13:06:52.739
+2 - 2018-07-27 13:06:52.740
+3 - 2018-07-27 13:06:52.740
+4 - 2018-07-27 13:06:52.740
+5 - 2018-07-27 13:06:53.639
+6 - 2018-07-27 13:06:53.943
+7 - 2018-07-27 13:06:58.152
+8 - 2018-07-27 13:07:15.104
+9 - 2018-07-27 13:07:15.224
+10 - 2018-07-27 13:07:15.241
+11 - 2018-07-27 13:07:15.241
+12 - 2018-07-27 13:07:15.241
+",""
+"2018-07-27 14:13:55.575","2018-07-27 14:13:55.584","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-27 14:13:55.576
+2 - 2018-07-27 14:13:55.580
+3 - 2018-07-27 14:13:55.581
+4 - 2018-07-27 14:13:55.583
+",""
+"2018-07-27 14:14:26.330","2018-07-27 14:14:29.470","Rest searchByTerm
+Term: London
+DisableCombine: false
+isDisableRelation: false
+Repositories :2 ","1 - Call to repository: The Fitzwilliam Museum
+2 - Successful call to The Fitzwilliam Museum
+3 - Combine: DcRights
+4 - Relation by Cordinates
+5 - Relation: DcTitle
+6 - Relation: Locations-Name
+","1 - 2018-07-27 14:14:26.377
+2 - 2018-07-27 14:14:29.418
+3 - 2018-07-27 14:14:29.454
+4 - 2018-07-27 14:14:29.468
+5 - 2018-07-27 14:14:29.468
+6 - 2018-07-27 14:14:29.469
+",""
+"2018-07-27 22:35:39.080","2018-07-27 22:35:39.450","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-27 22:35:39.086
+2 - 2018-07-27 22:35:39.102
+3 - 2018-07-27 22:35:39.226
+4 - 2018-07-27 22:35:39.345
+",""
+"2018-07-27 22:45:59.917","2018-07-27 22:45:59.926","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-27 22:45:59.917
+2 - 2018-07-27 22:45:59.921
+3 - 2018-07-27 22:45:59.923
+4 - 2018-07-27 22:45:59.925
+",""
+"2018-07-27 22:46:03.943","2018-07-27 22:46:03.952","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-27 22:46:03.944
+2 - 2018-07-27 22:46:03.947
+3 - 2018-07-27 22:46:03.948
+4 - 2018-07-27 22:46:03.950
+",""
+"2018-07-27 22:47:04.610","2018-07-27 22:47:26.461","Rest searchByTerm
+Term: london
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: Cultura Casas Religiosas
+2 - Call to repository: The Fitzwilliam Museum
+3 - Call to repository: DigitalNZ
+4 - Call to repository: Europeana
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Successful call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation by Cordinates
+11 - Relation: DcTitle
+12 - Relation: Locations-Name
+","1 - 2018-07-27 22:47:04.985
+2 - 2018-07-27 22:47:04.985
+3 - 2018-07-27 22:47:04.985
+4 - 2018-07-27 22:47:04.985
+5 - 2018-07-27 22:47:06.017
+6 - 2018-07-27 22:47:06.602
+7 - 2018-07-27 22:47:09.831
+8 - 2018-07-27 22:47:26.273
+9 - 2018-07-27 22:47:26.357
+10 - 2018-07-27 22:47:26.376
+11 - 2018-07-27 22:47:26.376
+12 - 2018-07-27 22:47:26.376
+",""
+"2018-07-27 22:49:01.768","2018-07-27 22:49:15.534","Rest searchByTerm
+Term: Convento
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: Europeana
+2 - Call to repository: The Fitzwilliam Museum
+3 - Call to repository: Cultura Casas Religiosas
+4 - Call to repository: DigitalNZ
+5 - Successful call to The Fitzwilliam Museum
+6 - Error call to Cultura Casas Religiosas
+7 - Successful call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation by Cordinates
+11 - Relation: DcTitle
+12 - Relation: Locations-Name
+","1 - 2018-07-27 22:49:01.796
+2 - 2018-07-27 22:49:01.796
+3 - 2018-07-27 22:49:01.796
+4 - 2018-07-27 22:49:01.796
+5 - 2018-07-27 22:49:01.988
+6 - 2018-07-27 22:49:02.684
+7 - 2018-07-27 22:49:03.537
+8 - 2018-07-27 22:49:15.491
+9 - 2018-07-27 22:49:15.513
+10 - 2018-07-27 22:49:15.515
+11 - 2018-07-27 22:49:15.515
+12 - 2018-07-27 22:49:15.515
+","6
+java.io.FileNotFoundException: cm-casasreligiosas.properties (O sistema não conseguiu localizar o ficheiro especificado)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at repository.Repositorio.getRepositoryName(Repositorio.java:179)
+	at repository.Repositorio.SearchByTerm(Repositorio.java:85)
+	at repositoryController.RepositoryContainer.SearchByTerm(RepositoryContainer.java:89)
+	at repositoryController.AsyncRepositorieConfig$AsyncRepositoriesCalls.searchRepositorieTerm(AsyncRepositorieConfig.java:108)
+	at repositoryController.AsyncRepositorieConfig$AsyncRepositoriesCalls$$FastClassBySpringCGLIB$$59023a5c.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.interceptor.AsyncExecutionInterceptor.lambda$invoke$0(AsyncExecutionInterceptor.java:115)
+	at org.springframework.aop.interceptor.AsyncExecutionAspectSupport.lambda$doSubmit$0(AsyncExecutionAspectSupport.java:270)
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1590)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+"
+"2018-07-27 22:53:20.825","2018-07-27 22:53:20.834","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-27 22:53:20.826
+2 - 2018-07-27 22:53:20.829
+3 - 2018-07-27 22:53:20.831
+4 - 2018-07-27 22:53:20.832
+",""
+"2018-07-27 22:54:04.654","2018-07-27 22:54:27.084","Rest searchByTerm
+Term: Convento
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: Europeana
+2 - Call to repository: Cultura Casas Religiosas
+3 - Call to repository: DigitalNZ
+4 - Call to repository: The Fitzwilliam Museum
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Successful call to DigitalNZ
+8 - Successful call to Europeana
+9 - Combine: DcRights
+10 - Relation by Cordinates
+11 - Relation: Locations-Name
+12 - Relation: DcTitle
+","1 - 2018-07-27 22:54:04.702
+2 - 2018-07-27 22:54:04.702
+3 - 2018-07-27 22:54:04.702
+4 - 2018-07-27 22:54:04.702
+5 - 2018-07-27 22:54:05.519
+6 - 2018-07-27 22:54:06.381
+7 - 2018-07-27 22:54:06.837
+8 - 2018-07-27 22:54:26.957
+9 - 2018-07-27 22:54:27.003
+10 - 2018-07-27 22:54:27.016
+11 - 2018-07-27 22:54:27.016
+12 - 2018-07-27 22:54:27.016
+",""
+"2018-07-28 00:20:19.865","2018-07-28 00:20:19.874","Load Repositories Jar","1 - Add jar cm-casasreligiosas.jar
+2 - Add jar DigitalNZ.jar
+3 - Add jar Europeana.jar
+4 - Add jar Fitzwilliam.jar
+","1 - 2018-07-28 00:20:19.866
+2 - 2018-07-28 00:20:19.870
+3 - 2018-07-28 00:20:19.871
+4 - 2018-07-28 00:20:19.873
+",""
+"2018-07-28 00:20:27.124","2018-07-28 00:20:47.942","Rest searchByTerm
+Term: Convento
+DisableCombine: false
+isDisableRelation: false
+Repositories :","1 - Call to repository: null
+2 - Call to repository: null
+3 - Call to repository: The Fitzwilliam Museum
+4 - Call to repository: Cultura Casas Religiosas
+5 - Successful call to The Fitzwilliam Museum
+6 - Successful call to Cultura Casas Religiosas
+7 - Successful call to null
+8 - Successful call to null
+9 - Combine: DcRights
+10 - Relation by Cordinates
+11 - Relation: DcTitle
+12 - Relation: Locations-Name
+","1 - 2018-07-28 00:20:27.175
+2 - 2018-07-28 00:20:27.175
+3 - 2018-07-28 00:20:27.175
+4 - 2018-07-28 00:20:27.175
+5 - 2018-07-28 00:20:28.003
+6 - 2018-07-28 00:20:28.727
+7 - 2018-07-28 00:20:35.868
+8 - 2018-07-28 00:20:47.840
+9 - 2018-07-28 00:20:47.879
+10 - 2018-07-28 00:20:47.890
+11 - 2018-07-28 00:20:47.890
+12 - 2018-07-28 00:20:47.890
+",""

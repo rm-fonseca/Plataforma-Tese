@@ -12,9 +12,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import Log.Log;
-import io.spring.guides.gs_producing_web_service.Result;
-import io.spring.guides.gs_producing_web_service.SearchByBoxRequest;
-import io.spring.guides.gs_producing_web_service.SearchByTermRequest;
+import plataforma.modelointerno.Result;
+import plataforma.modelointerno.SearchByBoxRequest;
+import plataforma.modelointerno.SearchByTermRequest;
 
 /*
  * Calls using threads to the reposiotires.
@@ -78,8 +78,7 @@ public class AsyncRepositorieConfig {
 				log.newStep("Successful call to " + container.getRepository().getName());
 
 				return CompletableFuture.completedFuture(true);
-			} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
-					| IllegalArgumentException | InvocationTargetException e) {
+			} catch (Exception e) {
 
 				int stepId = log.newStep("Error call to " + container.getRepository().getName());
 
@@ -113,14 +112,15 @@ public class AsyncRepositorieConfig {
 					result.addAll(repositoriesResult);
 				}
 
+				
+				
 				System.out.println(
 						"Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
 
 				log.newStep("Successful call to " + container.getRepository().getName());
 
 				return CompletableFuture.completedFuture(true);
-			} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
-					| IllegalArgumentException | InvocationTargetException e) {
+			} catch (Exception e) {
 
 				int stepId = log.newStep("Error call to " + container.getRepository().getName());
 

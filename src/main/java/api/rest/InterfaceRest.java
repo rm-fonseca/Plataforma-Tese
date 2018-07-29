@@ -15,14 +15,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import Log.Log;
 import api.AppStarter;
 import dataController.DataController;
-import io.spring.guides.gs_producing_web_service.ListRepositoriesRequest;
-import io.spring.guides.gs_producing_web_service.ListRepositoriesResponse;
-import io.spring.guides.gs_producing_web_service.Repository;
-import io.spring.guides.gs_producing_web_service.Result;
-import io.spring.guides.gs_producing_web_service.SearchByBoxRequest;
-import io.spring.guides.gs_producing_web_service.SearchByBoxResponse;
-import io.spring.guides.gs_producing_web_service.SearchByTermRequest;
-import io.spring.guides.gs_producing_web_service.SearchByTermResponse;
+import plataforma.modelointerno.ListRepositoriesRequest;
+import plataforma.modelointerno.ListRepositoriesResponse;
+import plataforma.modelointerno.Repository;
+import plataforma.modelointerno.Result;
+import plataforma.modelointerno.SearchByBoxRequest;
+import plataforma.modelointerno.SearchByBoxResponse;
+import plataforma.modelointerno.SearchByTermRequest;
+import plataforma.modelointerno.SearchByTermResponse;
 import repositoryController.RepositoryController;
 
 

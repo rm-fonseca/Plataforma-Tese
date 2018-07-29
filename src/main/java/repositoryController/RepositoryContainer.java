@@ -12,8 +12,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
-import io.spring.guides.gs_producing_web_service.Repository;
-import io.spring.guides.gs_producing_web_service.Result;
+import plataforma.modelointerno.Repository;
+import plataforma.modelointerno.Result;
 import repository.RepositoryAbstract;
 
 /*
@@ -33,11 +33,7 @@ public class RepositoryContainer {
 	public RepositoryContainer(File filename) throws ClassNotFoundException, IOException {
 
 		URL[] classLoaderUrls;
-		System.out.println();
-		System.out.println(filename.toURI().toURL());
-		System.out.println();
-		System.out.flush();
-		
+
 		//Load Jar
 		classLoaderUrls = new URL[] { filename.toURI().toURL() };
 				
@@ -59,14 +55,6 @@ public class RepositoryContainer {
 			prop.load(input);
 
 			rep.setName(prop.getProperty("Name", null));
-			
-			Enumeration<Object> a = prop.keys();
-			
-			while(a.hasMoreElements())
-				System.out.println(a.nextElement().toString());
-			
-			System.out.println(prop.getProperty("Name", null));
-			
 			
 			
 			
@@ -95,8 +83,7 @@ public class RepositoryContainer {
 	/*
 	 * Create a new instance of the repository and calls SearchByTerm
 	 */
-	public List<Result> SearchByTerm(String term, boolean ignoreExtraProperties) throws InstantiationException, IllegalAccessException,
-			NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
+	public List<Result> SearchByTerm(String term, boolean ignoreExtraProperties) throws Exception {
 		RepositoryAbstract instance =(RepositoryAbstract) classToLoad.newInstance();
 		return instance.SearchByTerm(term, ignoreExtraProperties);
 	}
@@ -109,8 +96,7 @@ public class RepositoryContainer {
 	 * Create a new instance of the repository and calls SearchByBox
 	 */
 	public List<Result> SearchByBox(int latitudeFrom, int latitudeTo, int longitudeFrom, int longitudeTo, boolean ignoreExtraProperties)
-			throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException,
-			IllegalArgumentException, InvocationTargetException {
+			throws Exception {
 		RepositoryAbstract instance =(RepositoryAbstract) classToLoad.newInstance();
 		return instance.SearchByBox(latitudeFrom, latitudeTo, longitudeFrom, longitudeTo, ignoreExtraProperties);
 	}

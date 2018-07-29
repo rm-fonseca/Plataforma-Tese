@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 
 import Log.Log;
 import api.AppStarter;
-import io.spring.guides.gs_producing_web_service.Repository;
-import io.spring.guides.gs_producing_web_service.Result;
-import io.spring.guides.gs_producing_web_service.SearchByBoxRequest;
-import io.spring.guides.gs_producing_web_service.SearchByTermRequest;
+import plataforma.modelointerno.Repository;
+import plataforma.modelointerno.Result;
+import plataforma.modelointerno.SearchByBoxRequest;
+import plataforma.modelointerno.SearchByTermRequest;
 import repositoryController.AsyncRepositorieConfig.AsyncRepositoriesCalls;
 
 @Component
@@ -75,9 +75,7 @@ public class RepositoryController {
 			}
 
 		// Wait for all the threads to finishe processing the requests.
-		System.out.println("Start Wait");
 		CompletableFuture.allOf(threads.toArray(new CompletableFuture[0])).join();
-		System.out.println("All Finished");
 		context.close();
 		return result;
 	}
@@ -126,9 +124,7 @@ public class RepositoryController {
 
 			}
 		// Wait for all the threads to finishe processing the requests.
-		System.out.println("Start Wait");
 		CompletableFuture.allOf(threads.toArray(new CompletableFuture[0])).join();
-		System.out.println("All Finished");
 		context.close();
 
 		return result;
@@ -160,7 +156,6 @@ public class RepositoryController {
 		repositories = new HashMap<Integer, RepositoryContainer>();
 
 		File dir = new File("Repositorios");
-		System.out.println(dir.getAbsolutePath());
 		File[] files = dir.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
@@ -176,7 +171,7 @@ public class RepositoryController {
 			try {
 				repCont = new RepositoryContainer(file);
 				repositories.put(repCont.getRepository().getID(), repCont);
-			} catch (ClassNotFoundException | IOException e) {
+			} catch (Exception e) {
 
 				log.addError(stepId, e);
 
