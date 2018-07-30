@@ -14,7 +14,7 @@ import Log.Logger;
 import repositoryController.RepositoryController;
 
 /*
- * Spring Starter
+ * Spring Starter Class
  */
 
 @SpringBootApplication
@@ -25,18 +25,17 @@ public class AppStarter extends SpringBootServletInitializer {
 	
 	public static void main(String[] args) throws IOException {
 
+		
+		//Initiate the Logger
 		logger = new Logger();
 		
+		//Load All Repositories to the platform.
 		RepositoryController.getRepositories();
 
 		
-		// Load Properties
-
-
-		
+		// Load Properties File
 		ConfigurationPlatform.prop = new Properties();
 		InputStream input = null;
-
 		input = new FileInputStream("platform.properties");
 		ConfigurationPlatform.prop.load(input);
 

@@ -32,17 +32,18 @@ import repositoryController.AsyncRepositorieConfig.AsyncRepositoriesCalls;
  */
 public class DataController {
 
+	/*
+	 * Makes a request to the repository controller for a search by term and then detects relations between the results
+	 */
 	public static List<Result> Search(SearchByTermRequest request, Log log) {
-
-		
 		List<Result> results = RepositoryController.Search(request,log);
 		workData(results,request.isDisableCombine(),request.isDisableRelation(),log);
-
-
 		return results;
 
 	}
-
+	/*
+	 * Makes a request to the repository controller for a search by box and then detects relations between the results
+	 */
 	public static List<Result> SearchBox(SearchByBoxRequest request,Log log) {
 
 		List<Result> results = RepositoryController.SearchBox(request, log);
@@ -53,13 +54,17 @@ public class DataController {
 
 	}
 
+	
+	/*
+	 * Calls all the different relations methods in different threads.
+	 */
 	private static void workData(List<Result> results, boolean disableCombine, boolean disableRelations, Log log) {
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AsyncDataController.class);
 		AsyncDataCalls asyncRepositoriesCalls = context.getBean(AsyncDataCalls.class);
 
 		if (!disableCombine) {
-			String[] fields = ConfigurationPlatform.getParamtesCombineFields();
+			String[] fields = ConfigurationPlatform.getParamtesCombineFields(); // Get the fields to compare from the properties file
 
 			for (String field : fields)
 				asyncRepositoriesCalls.findRelationsFieldCombine(field, results,log);
@@ -69,14 +74,14 @@ public class DataController {
 		if (!disableRelations) {
 			List<Future<Void>> threads = new ArrayList<>();
 
-			threads.add(asyncRepositoriesCalls.findRelationsCoordinates(results,log));
+			threads.add(asyncRepositoriesCalls.findRelationsCoordinates(results,log)); // Get the fields to compare from the properties file
 
 			String[] fields = ConfigurationPlatform.getParamtesRelation();
 
 			for (String field : fields)
-				threads.add(asyncRepositoriesCalls.findRelationsField(field, results,log));
+				threads.add(asyncRepositoriesCalls.findRelationsField(field, results,log)); //Call a thread for each group of fields to compare
 
-			CompletableFuture.allOf(threads.toArray(new CompletableFuture[0])).join();
+			CompletableFuture.allOf(threads.toArray(new CompletableFuture[0])).join(); //wait all threads.
 		}
 
 

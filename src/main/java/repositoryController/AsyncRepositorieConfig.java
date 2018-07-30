@@ -60,10 +60,12 @@ public class AsyncRepositorieConfig {
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
 
+			//register call to repository in log
 			log.newStep("Call to repository: " + container.getRepository().getName());
 
 			try {
 
+				// Call to the selected repository
 				List<Result> repositoriesResult = container.SearchByBox(request.getLatitudeFrom(),
 						request.getLatitudeTo(), request.getLongitudeFrom(), request.getLongitudeTo(),
 						request.isIgnoreExtraProperties());
@@ -100,11 +102,11 @@ public class AsyncRepositorieConfig {
 
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
-
+			//register call to repository in log
 			log.newStep("Call to repository: " + container.getRepository().getName());
 
 			try {
-
+				// Call to the selected repository
 				List<Result> repositoriesResult = container.SearchByTerm(request.getTerm(),
 						request.isIgnoreExtraProperties());
 

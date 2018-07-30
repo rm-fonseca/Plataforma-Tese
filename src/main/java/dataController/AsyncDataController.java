@@ -26,6 +26,11 @@ import plataforma.modelointerno.RelationLocations;
 import plataforma.modelointerno.Result;
 import plataforma.modelointerno.ValueField;
 
+
+/*
+ * Class to work data asynchronously 
+ */
+
 @EnableAsync
 @Configuration
 public class AsyncDataController {
@@ -65,7 +70,7 @@ public class AsyncDataController {
 			try {
 				
 			
-			
+			//Logs thread starting
 			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 					+ Thread.currentThread().getId());
 
@@ -76,7 +81,7 @@ public class AsyncDataController {
 
 				Result result1 = resultList.get(i);
 
-				if (result1.getLocations() == null || result1.getLocations().size() == 0)
+				if (result1.getLocations() == null || result1.getLocations().size() == 0) //if the result has no locations associate ignore it
 					break;
 
 				for (int j = i + 1; j < resultList.size(); j++) {
@@ -87,9 +92,11 @@ public class AsyncDataController {
 
 					for (Location location1 : result1.getLocations()) {
 
-						if (location1.getLatitude().size() == 0 || location1.getLongitude().size() == 0)
+						if (location1.getLatitude().size() == 0 || location1.getLongitude().size() == 0) // for each location if has no coordinates associated ignore it
 							continue;
 
+						
+						//Get max and min latitude
 						if (location1.getLatitude().size() == 1) {
 							max = location1.getLatitude().get(0) + ConfigurationPlatform.getCordinatesPointExtraRange();
 							min = location1.getLatitude().get(0) - ConfigurationPlatform.getCordinatesPointExtraRange();
@@ -104,7 +111,7 @@ public class AsyncDataController {
 
 							latitudeIsIn = false;
 
-							// Compare Coordenates
+							//Verifies if exists a latitude value from the second result
 							{
 
 								for (float latitude : location2.getLatitude()) {
@@ -115,7 +122,8 @@ public class AsyncDataController {
 									}
 								}
 
-								if (!latitudeIsIn)
+								//If no latitude was found in beetween
+								if (!latitudeIsIn) 
 									break;
 
 								if (location1.getLongitude().size() == 1) {
@@ -300,7 +308,9 @@ public class AsyncDataController {
 			return CompletableFuture.completedFuture(null);
 
 		}
-
+		/*
+		 * Find relations comparing a list o selected fields.
+		 */
 		public void findRelationsFieldCombine(String fieldsString, List<Result> resultList, Log log) {
 
 			int idStep = log.newStep("Combine: " + fieldsString);
@@ -394,6 +404,9 @@ public class AsyncDataController {
 
 		}
 
+		/*
+		 * Find a field using a string with a path of field properties
+		 */
 		private List<LanguageString> findField(String fieldPath, Result result) throws NoSuchMethodException,
 				SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
@@ -445,6 +458,10 @@ public class AsyncDataController {
 
 		}
 
+		/*
+		 * Joins the properties of two diferent results.
+		 */
+		
 		private void joinResults(Object a, Object b) {
 
 			Field[] allFields = a.getClass().getDeclaredFields();

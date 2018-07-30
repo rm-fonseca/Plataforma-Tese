@@ -145,7 +145,6 @@ public class RepositoryController {
 		return reps;
 	}
 
-	// Automatize this
 	/*
 	 * Loads all the repositories jars to the platform into the repositories list
 	 */
@@ -156,6 +155,7 @@ public class RepositoryController {
 		repositories = new HashMap<Integer, RepositoryContainer>();
 
 		File dir = new File("Repositorios");
+		//Find all files in folder Repositories with the extension .jar
 		File[] files = dir.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
@@ -163,7 +163,7 @@ public class RepositoryController {
 			}
 		});
 
-		for (File file : files) {
+		for (File file : files) { 
 
 			int stepId = log.newStep("Add jar " + file.getName());
 

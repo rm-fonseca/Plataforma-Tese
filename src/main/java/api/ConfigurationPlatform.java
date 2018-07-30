@@ -14,12 +14,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+/*
+ * Class that defines the access to the different configuration properties of the platform.
+ */
 public class ConfigurationPlatform {
 
 	public static Properties prop;
 
 	
-	
+	/*
+	 * Get configuration value of RelationFields from the properties File.
+	 */
 	public static String[] getParamtesRelation() {
 		List<String> list = new ArrayList<>();
 
@@ -30,6 +35,9 @@ public class ConfigurationPlatform {
 		return fields.split(";");
 	}
 	
+	/*
+	 * Get configuration value of CombineFields from the properties File.
+	 */
 	public static String[] getParamtesCombineFields() {
 		List<String> list = new ArrayList<>();
 
@@ -40,6 +48,9 @@ public class ConfigurationPlatform {
 		return fields.split(";");
 	}
 	
+	/*
+	 * Get configuration value of CordinatesAreaExtraRange from the properties File. Returns 0 if not defined
+	 */
 	public static float getCordinatesAreaExtraRange() {
 		
 		
@@ -50,6 +61,9 @@ public class ConfigurationPlatform {
 		
 	}
 	
+	/*
+	 * Get configuration value of CordinatesPointExtraRange from the properties File. Returns 0 if not defined
+	 */
 	public static int getCordinatesPointExtraRange() {
 		
 		

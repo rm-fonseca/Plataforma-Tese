@@ -44,10 +44,13 @@ public class InterfaceRest {
 	public SearchByTermResponse search(SearchByTermRequest request,
 			@RequestParam(required = false) List<Integer> repositories) {
 		 
-		
+		//In rest the list of repositories inside of the class (SearchByTermRequest) was being ignored
+		//so we have to add it manually to the parameters and then to the object.
 		if (repositories != null)
 			request.getRepositories().addAll(repositories);
 		
+		
+		//Command description to save in the log
 		String command = "Rest searchByTerm\nTerm: " + request.getTerm() + "\n";
 		command += "DisableCombine: " + request.isDisableCombine() + "\n";
 		command += "isDisableRelation: " + request.isDisableRelation() + "\n";
@@ -62,7 +65,7 @@ public class InterfaceRest {
 		Log log = new Log(command);
 
 		
-		
+		//Work the data
 		List<Result> results = DataController.Search(request,log);
 
 
@@ -70,6 +73,7 @@ public class InterfaceRest {
 		response.getResults().addAll(results);
 		response.setCount(results.size());
 		
+		//Register end of call and write to log file
 		log.Close();
 		AppStarter.logger.WriteToFile(log);
 		
@@ -86,9 +90,13 @@ public class InterfaceRest {
 	@RequestMapping(value = "searchByBox", method = RequestMethod.GET, produces = "application/json")
 	public SearchByBoxResponse searchBox(SearchByBoxRequest box,
 			@RequestParam(required = false) List<Integer> repositories) {
+		
+		//In rest the list of repositories inside of the class (SearchByTermRequest) was being ignored
+		//so we have to add it manually to the parameters and then to the object.
 		if (repositories != null)
 			box.getRepositories().addAll(repositories);
 		
+		//Command description to save in the log
 		String command = "Rest searchByBox\nLatitudeFrom: " + box.getLatitudeFrom() + "\nLatitudeTo: " + box.getLatitudeTo() + "\n";
 		command += "LongitudeFrom: " + box.getLongitudeFrom() +   "\nLongitudeTo: " + box.getLongitudeTo() + "\n";
 		command += "DisableCombine: " + box.isDisableCombine() + "\n";
@@ -103,12 +111,14 @@ public class InterfaceRest {
 		Log log = new Log(command);
 
 		
+		//Work the data
 		List<Result> results = DataController.SearchBox(box,log);
 		
 		SearchByBoxResponse response = new SearchByBoxResponse();
 		response.getResults().addAll(results);
 		response.setCount(results.size());
 		
+		//Register end of call and write to log file
 		log.Close();
 		AppStarter.logger.WriteToFile(log);
 		
@@ -125,12 +135,14 @@ public class InterfaceRest {
 		
 		Log log = new Log("List Repositories");
 
-		
+		//Get list of repositories.
 		List<Repository> results = RepositoryController.ListRepositories();
 
 		ListRepositoriesResponse response = new ListRepositoriesResponse();
 		response.getRepositories().addAll(results);
 		
+		
+		//Register end of call and write to log file
 		log.Close();
 		AppStarter.logger.WriteToFile(log);
 		

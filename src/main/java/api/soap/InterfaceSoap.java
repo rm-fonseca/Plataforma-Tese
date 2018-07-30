@@ -38,8 +38,8 @@ public class InterfaceSoap {
 	@ResponsePayload
 	public SearchByTermResponse search(@RequestPayload SearchByTermRequest request) {
 
-		
-		String command = "Rest searchByTerm\nTerm: " + request.getTerm() + "\n";
+		//Command description to save in the log
+		String command = "Soap searchByTerm\nTerm: " + request.getTerm() + "\n";
 		command += "DisableCombine: " + request.isDisableCombine() + "\n";
 		command += "isDisableRelation: " + request.isDisableRelation() + "\n";
 		command += "Repositories :";
@@ -52,7 +52,7 @@ public class InterfaceSoap {
 		
 		Log log = new Log(command);
 
-		
+		//Work the data
 		List<Result> results = DataController.Search(request, log);
 		SearchByTermResponse response = new SearchByTermResponse();
 		response.getResults().addAll(results);
@@ -60,7 +60,7 @@ public class InterfaceSoap {
 		response.getResults().addAll(results);
 		response.setCount(results.size());
 		
-		
+		//Register end of call and write to log file
 		log.Close();
 		AppStarter.logger.WriteToFile(log);
 		
@@ -74,7 +74,8 @@ public class InterfaceSoap {
 	@ResponsePayload
 	public SearchByBoxResponse search(@RequestPayload SearchByBoxRequest request) {
 
-		String command = "Rest searchByBox\nLatitudeFrom: " + request.getLatitudeFrom() + "\nLatitudeTo: " + request.getLatitudeTo() + "\n";
+		//Command description to save in the log
+		String command = "Soap searchByBox\nLatitudeFrom: " + request.getLatitudeFrom() + "\nLatitudeTo: " + request.getLatitudeTo() + "\n";
 		command += "LongitudeFrom: " + request.getLongitudeFrom() +   "\nLongitudeTo: " + request.getLongitudeTo() + "\n";
 		command += "DisableCombine: " + request.isDisableCombine() + "\n";
 		command += "isDisableRelation: " + request.isDisableRelation() + "\n";
@@ -87,7 +88,7 @@ public class InterfaceSoap {
 		
 		Log log = new Log(command);
 		
-		
+		//Work the data
 		List<Result> results = DataController.SearchBox(request,log);
 		SearchByBoxResponse response = new SearchByBoxResponse();
 		response.getResults().addAll(results);
@@ -95,6 +96,7 @@ public class InterfaceSoap {
 		response.getResults().addAll(results);
 		response.setCount(results.size());
 		
+		//Register end of call and write to log file
 		log.Close();
 		AppStarter.logger.WriteToFile(log);
 		
@@ -109,12 +111,14 @@ public class InterfaceSoap {
 
 		Log log = new Log("List Repositories");
 
-		
+		//Get list of repositories.
 		 List<Repository> results = RepositoryController.ListRepositories();
 
 		ListRepositoriesResponse response = new ListRepositoriesResponse();
 		response.getRepositories().addAll(results);
 		
+		
+		//Register end of call and write to log file
 		log.Close();
 		AppStarter.logger.WriteToFile(log);
 		return response;

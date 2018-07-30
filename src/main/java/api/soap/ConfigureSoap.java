@@ -46,7 +46,7 @@ public class ConfigureSoap extends WsConfigurerAdapter {
 	}
 
 	/*
-	 * Define where the shema is
+	 * Define where the schema is
 	 */
 	@Bean
 	public XsdSchema frameworkSchema() {

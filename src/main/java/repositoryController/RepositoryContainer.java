@@ -17,7 +17,7 @@ import plataforma.modelointerno.Result;
 import repository.RepositoryAbstract;
 
 /*
- * Loads the repository from a a jar
+ * Loads the repository from a jar
  */
 
 public class RepositoryContainer {
@@ -34,20 +34,18 @@ public class RepositoryContainer {
 
 		URL[] classLoaderUrls;
 
-		//Load Jar
+		// Load Jar
 		classLoaderUrls = new URL[] { filename.toURI().toURL() };
-				
+
 		URLClassLoader child = new URLClassLoader(classLoaderUrls);
-		classToLoad =  (Class<RepositoryAbstract>) Class.forName("repository.Repositorio", true, child);
+		classToLoad = (Class<RepositoryAbstract>) Class.forName("repository.Repositorio", true, child);
 		rep = new Repository();
 
-		
-		//Load Properties
+		// Load Properties
 		Properties prop = new Properties();
 		InputStream input = null;
 		try {
 
-			
 			input = new FileInputStream(
 					filename.getPath().substring(0, filename.getPath().toString().length() - 3) + "properties");
 
@@ -55,9 +53,7 @@ public class RepositoryContainer {
 			prop.load(input);
 
 			rep.setName(prop.getProperty("Name", null));
-			
-			
-			
+
 			rep.setDescription(prop.getProperty("Description", null));
 
 			// TODO if ID null exception
@@ -67,7 +63,7 @@ public class RepositoryContainer {
 			rep.setSearchByBox(Boolean.parseBoolean(prop.getProperty("SearchByBox", "false")));
 
 		} catch (IOException ex) {
-			
+
 			if (input != null) {
 				try {
 					input.close();
@@ -75,8 +71,7 @@ public class RepositoryContainer {
 				}
 			}
 			throw ex;
-		} 
-		
+		}
 
 	}
 
@@ -84,10 +79,13 @@ public class RepositoryContainer {
 	 * Create a new instance of the repository and calls SearchByTerm
 	 */
 	public List<Result> SearchByTerm(String term, boolean ignoreExtraProperties) throws Exception {
-		RepositoryAbstract instance =(RepositoryAbstract) classToLoad.newInstance();
+		RepositoryAbstract instance = (RepositoryAbstract) classToLoad.newInstance();
 		return instance.SearchByTerm(term, ignoreExtraProperties);
 	}
 
+	/*
+	 * Get Repository information
+	 */
 	public Repository getRepository() {
 		return rep;
 	}
@@ -95,9 +93,9 @@ public class RepositoryContainer {
 	/*
 	 * Create a new instance of the repository and calls SearchByBox
 	 */
-	public List<Result> SearchByBox(int latitudeFrom, int latitudeTo, int longitudeFrom, int longitudeTo, boolean ignoreExtraProperties)
-			throws Exception {
-		RepositoryAbstract instance =(RepositoryAbstract) classToLoad.newInstance();
+	public List<Result> SearchByBox(int latitudeFrom, int latitudeTo, int longitudeFrom, int longitudeTo,
+			boolean ignoreExtraProperties) throws Exception {
+		RepositoryAbstract instance = (RepositoryAbstract) classToLoad.newInstance();
 		return instance.SearchByBox(latitudeFrom, latitudeTo, longitudeFrom, longitudeTo, ignoreExtraProperties);
 	}
 
