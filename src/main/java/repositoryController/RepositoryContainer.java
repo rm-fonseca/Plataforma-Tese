@@ -61,6 +61,8 @@ public class RepositoryContainer {
 			rep.setID(Integer.parseInt(prop.getProperty("ID", null)));
 			rep.setSearchByTerm(Boolean.parseBoolean(prop.getProperty("SearchByTerm", "false")));
 			rep.setSearchByBox(Boolean.parseBoolean(prop.getProperty("SearchByBox", "false")));
+			input.close();
+			
 
 		} catch (IOException ex) {
 

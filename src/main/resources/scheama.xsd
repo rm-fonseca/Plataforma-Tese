@@ -375,12 +375,19 @@
 				maxOccurs="1" />
 			<xs:element name="name" type="tns:languageString"
 				minOccurs="0" maxOccurs="unbounded" />
-			<xs:element name="latitude" type="xs:float" minOccurs="0"
-				maxOccurs="unbounded" />
-			<xs:element name="longitude" type="xs:float" minOccurs="0"
+			<xs:element name="coordinates" type="tns:Point" minOccurs="0"
 				maxOccurs="unbounded" />
 			<xs:element name="extraProperties"
 				type="tns:extraProperty" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Point">
+		<xs:sequence>
+			<xs:element name="latitude" type="xs:float" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="longitude" type="xs:float" minOccurs="0"
+				maxOccurs="1" />
 		</xs:sequence>
 	</xs:complexType>
 

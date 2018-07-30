@@ -21,11 +21,11 @@ import Log.Log;
 import api.ConfigurationPlatform;
 import plataforma.modelointerno.LanguageString;
 import plataforma.modelointerno.Location;
+import plataforma.modelointerno.Point;
 import plataforma.modelointerno.RelationField;
 import plataforma.modelointerno.RelationLocations;
 import plataforma.modelointerno.Result;
 import plataforma.modelointerno.ValueField;
-
 
 /*
  * Class to work data asynchronously 
@@ -68,119 +68,129 @@ public class AsyncDataController {
 			int idStep = log.newStep("Relation by Cordinates");
 
 			try {
-				
-			
-			//Logs thread starting
-			System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
-					+ Thread.currentThread().getId());
 
-			boolean latitudeIsIn = false;
-			float max, min;
+				// Logs thread starting
+				System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
+						+ Thread.currentThread().getId());
 
-			for (int i = 0; i < resultList.size() - 1; i++) {
+				boolean latitudeIsIn = false;
+				float maxLat, minLat, maxLong, minLong;
 
-				Result result1 = resultList.get(i);
+				for (int i = 0; i < resultList.size() - 1; i++) {
 
-				if (result1.getLocations() == null || result1.getLocations().size() == 0) //if the result has no locations associate ignore it
-					break;
+					Result result1 = resultList.get(i);
 
-				for (int j = i + 1; j < resultList.size(); j++) {
-
-					Result result2 = resultList.get(j);
-					if (result2.getLocations() == null || result1.getLocations().size() == 0)
+					if (result1.getLocations() == null || result1.getLocations().size() == 0) // if the result has no
+																								// locations associate
+																								// ignore it
 						break;
 
-					for (Location location1 : result1.getLocations()) {
+					for (int j = i + 1; j < resultList.size(); j++) {
 
-						if (location1.getLatitude().size() == 0 || location1.getLongitude().size() == 0) // for each location if has no coordinates associated ignore it
-							continue;
+						Result result2 = resultList.get(j);
+						if (result2.getLocations() == null || result1.getLocations().size() == 0)
+							break;
 
-						
-						//Get max and min latitude
-						if (location1.getLatitude().size() == 1) {
-							max = location1.getLatitude().get(0) + ConfigurationPlatform.getCordinatesPointExtraRange();
-							min = location1.getLatitude().get(0) - ConfigurationPlatform.getCordinatesPointExtraRange();
-						} else {
-							max = Collections.max(location1.getLatitude())
-									+ ConfigurationPlatform.getCordinatesAreaExtraRange();
-							min = Collections.max(location1.getLatitude())
-									- ConfigurationPlatform.getCordinatesAreaExtraRange();
-						}
+						for (Location location1 : result1.getLocations()) {
 
-						for (Location location2 : result2.getLocations()) {
+							if (location1.getCoordinates().size() == 0) // for each location if has no coordinates
+																		// associated ignore it
+								continue;
 
-							latitudeIsIn = false;
+							// Get max and min latitude
+							if (location1.getCoordinates().size() == 1) {
+								maxLat = location1.getCoordinates().get(0).getLatitude()
+										+ ConfigurationPlatform.getCordinatesPointExtraRange();
+								minLat = location1.getCoordinates().get(0).getLatitude()
+										- ConfigurationPlatform.getCordinatesPointExtraRange();
+								maxLong = location1.getCoordinates().get(0).getLongitude()
+										+ ConfigurationPlatform.getCordinatesPointExtraRange();
+								minLong = location1.getCoordinates().get(0).getLongitude()
+										- ConfigurationPlatform.getCordinatesPointExtraRange();
+							} else {
+								
+								maxLat = location1.getCoordinates().get(0).getLatitude();
+								minLat = location1.getCoordinates().get(0).getLatitude();
+								maxLong = location1.getCoordinates().get(0).getLongitude();
+								minLong = location1.getCoordinates().get(0).getLongitude();
+								
+								for (Point point : location1.getCoordinates()) {
 
-							//Verifies if exists a latitude value from the second result
-							{
-
-								for (float latitude : location2.getLatitude()) {
-
-									if (inBetween(latitude, min, max)) {
-										latitudeIsIn = true;
-										break;
-									}
+									
+									
+									if(point.getLatitude() < minLat)
+										minLat = point.getLatitude();
+									
+									if(point.getLatitude() > maxLat)
+										maxLat = point.getLatitude();
+									
+									if(point.getLongitude() < minLong)
+										minLong = point.getLongitude();
+									
+									if(point.getLongitude() > maxLong)
+										maxLong = point.getLongitude();
 								}
+								
+								
+								
+								
+								
+								
+								maxLat+= ConfigurationPlatform.getCordinatesAreaExtraRange();
+								maxLong+= ConfigurationPlatform.getCordinatesAreaExtraRange();
+								minLong-= ConfigurationPlatform.getCordinatesAreaExtraRange();
+								minLat-= ConfigurationPlatform.getCordinatesAreaExtraRange();
+							}
 
-								//If no latitude was found in beetween
-								if (!latitudeIsIn) 
-									break;
+							for (Location location2 : result2.getLocations()) {
 
-								if (location1.getLongitude().size() == 1) {
-									max = location1.getLongitude().get(0)
-											+ ConfigurationPlatform.getCordinatesPointExtraRange();
-									min = location1.getLongitude().get(0)
-											- ConfigurationPlatform.getCordinatesPointExtraRange();
-								} else {
-									max = Collections.max(location1.getLongitude())
-											+ ConfigurationPlatform.getCordinatesAreaExtraRange();
-									min = Collections.max(location1.getLongitude())
-											- ConfigurationPlatform.getCordinatesAreaExtraRange();
-								}
+								// Verifies if exists a latitude value from the second result
+								{
 
-								for (float longitude : location2.getLongitude()) {
+									for (Point point : location2.getCoordinates()) {
 
-									if (inBetween(longitude, min, max)) {
+										if (inBetween(point.getLatitude(), minLat, maxLat) && inBetween(point.getLongitude(), minLong, maxLong)) {
 
-										RelationLocations rel1 = new RelationLocations();
-										RelationLocations rel2 = new RelationLocations();
+											RelationLocations rel1 = new RelationLocations();
+											RelationLocations rel2 = new RelationLocations();
 
-										rel1.setTargetResultIdLocation(location2.getId());
-										rel1.setThisResultIdLocation(location1.getId());
-										rel1.setIdResult(result2.getSourceData().get(0));
+											rel1.setTargetResultIdLocation(location2.getId());
+											rel1.setThisResultIdLocation(location1.getId());
+											rel1.setIdResult(result2.getSourceData().get(0));
 
-										rel2.setTargetResultIdLocation(location1.getId());
-										rel2.setTargetResultIdLocation(location1.getId());
-										rel2.setIdResult(result1.getSourceData().get(0));
+											rel2.setTargetResultIdLocation(location1.getId());
+											rel2.setTargetResultIdLocation(location1.getId());
+											rel2.setIdResult(result1.getSourceData().get(0));
 
-										synchronized (result1) {
-											result1.getSameLocationCoordenatesThat().add(rel1);
+											synchronized (result1) {
+												result1.getSameLocationCoordenatesThat().add(rel1);
+											}
+											synchronized (result2) {
+												result2.getSameLocationCoordenatesThat().add(rel2);
+											}
+
+											break;
+
 										}
-										synchronized (result2) {
-											result2.getSameLocationCoordenatesThat().add(rel2);
-										}
-
-										break;
 									}
+
 								}
 
 							}
-
 						}
+
 					}
 
 				}
 
-			}
-
-			System.out
-					.println("Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
-			System.out.flush();
-			}catch(Exception e) {
+				System.out.println(
+						"Finished Sucessefully method asynchronously - Name:" + Thread.currentThread().getName());
+				System.out.flush();
+			} catch (Exception e) {
 				log.addError(idStep, e);
 
 			}
-			
+
 			return CompletableFuture.completedFuture(null);
 
 		}
@@ -308,6 +318,7 @@ public class AsyncDataController {
 			return CompletableFuture.completedFuture(null);
 
 		}
+
 		/*
 		 * Find relations comparing a list o selected fields.
 		 */
@@ -461,7 +472,7 @@ public class AsyncDataController {
 		/*
 		 * Joins the properties of two diferent results.
 		 */
-		
+
 		private void joinResults(Object a, Object b) {
 
 			Field[] allFields = a.getClass().getDeclaredFields();

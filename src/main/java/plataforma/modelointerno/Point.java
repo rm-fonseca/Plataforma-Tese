@@ -10,22 +10,21 @@ package plataforma.modelointerno;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for resource complex type.
+ * <p>Java class for Point complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="resource">
+ * &lt;complexType name="Point">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="type" type="{Plataforma/ModeloInterno}resourceType"/>
- *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="latitude" type="{http://www.w3.org/2001/XMLSchema}float" minOccurs="0"/>
+ *         &lt;element name="longitude" type="{http://www.w3.org/2001/XMLSchema}float" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,63 +34,61 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "resource", propOrder = {
-    "type",
-    "url"
+@XmlType(name = "Point", propOrder = {
+    "latitude",
+    "longitude"
 })
-public class Resource {
+public class Point {
 
-    @XmlElement(required = true)
-    protected String type;
-    @XmlElement(required = true)
-    protected String url;
+    protected Float latitude;
+    protected Float longitude;
 
     /**
-     * Gets the value of the type property.
+     * Gets the value of the latitude property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Float }
      *     
      */
-    public String getType() {
-        return type;
+    public Float getLatitude() {
+        return latitude;
     }
 
     /**
-     * Sets the value of the type property.
+     * Sets the value of the latitude property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Float }
      *     
      */
-    public void setType(String value) {
-        this.type = value;
+    public void setLatitude(Float value) {
+        this.latitude = value;
     }
 
     /**
-     * Gets the value of the url property.
+     * Gets the value of the longitude property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Float }
      *     
      */
-    public String getUrl() {
-        return url;
+    public Float getLongitude() {
+        return longitude;
     }
 
     /**
-     * Sets the value of the url property.
+     * Sets the value of the longitude property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Float }
      *     
      */
-    public void setUrl(String value) {
-        this.url = value;
+    public void setLongitude(Float value) {
+        this.longitude = value;
     }
 
 }
