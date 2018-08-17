@@ -49,19 +49,6 @@ public class ConfigurationPlatform {
 	}
 	
 	/*
-	 * Get configuration value of CordinatesAreaExtraRange from the properties File. Returns 0 if not defined
-	 */
-	public static float getCordinatesAreaExtraRange() {
-		
-		
-		String field = prop.getProperty("CordinatesAreaExtraRange", "0");
-
-		return Float.parseFloat(field);
-		
-		
-	}
-	
-	/*
 	 * Get configuration value of CordinatesPointExtraRange from the properties File. Returns 0 if not defined
 	 */
 	public static int getCordinatesPointExtraRange() {

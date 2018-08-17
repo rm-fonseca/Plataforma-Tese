@@ -38,7 +38,7 @@ public class RepositoryContainer {
 		classLoaderUrls = new URL[] { filename.toURI().toURL() };
 
 		URLClassLoader child = new URLClassLoader(classLoaderUrls);
-		classToLoad = (Class<RepositoryAbstract>) Class.forName("repository.Repositorio", true, child);
+		classToLoad = (Class<RepositoryAbstract>) Class.forName("repository.Repository", true, child);
 		rep = new Repository();
 
 		// Load Properties

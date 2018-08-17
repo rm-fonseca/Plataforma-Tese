@@ -1,5 +1,10 @@
 package dataController;
 
+import java.awt.Rectangle;
+import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -73,9 +78,6 @@ public class AsyncDataController {
 				System.out.println("Execute method asynchronously - Name:" + Thread.currentThread().getName() + " ID:"
 						+ Thread.currentThread().getId());
 
-				boolean latitudeIsIn = false;
-				float maxLat, minLat, maxLong, minLong;
-
 				for (int i = 0; i < resultList.size() - 1; i++) {
 
 					Result result1 = resultList.get(i);
@@ -97,59 +99,50 @@ public class AsyncDataController {
 																		// associated ignore it
 								continue;
 
+							Area area1, area2;
 							// Get max and min latitude
 							if (location1.getCoordinates().size() == 1) {
-								maxLat = location1.getCoordinates().get(0).getLatitude()
-										+ ConfigurationPlatform.getCordinatesPointExtraRange();
-								minLat = location1.getCoordinates().get(0).getLatitude()
-										- ConfigurationPlatform.getCordinatesPointExtraRange();
-								maxLong = location1.getCoordinates().get(0).getLongitude()
-										+ ConfigurationPlatform.getCordinatesPointExtraRange();
-								minLong = location1.getCoordinates().get(0).getLongitude()
-										- ConfigurationPlatform.getCordinatesPointExtraRange();
+
+								Rectangle2D.Float rect = new Rectangle2D.Float(
+										location1.getCoordinates().get(0).getLongitude()
+												- ConfigurationPlatform.getCordinatesPointExtraRange(),
+										location1.getCoordinates().get(0).getLatitude()
+												- ConfigurationPlatform.getCordinatesPointExtraRange(),
+										ConfigurationPlatform.getCordinatesPointExtraRange() * 2,
+										ConfigurationPlatform.getCordinatesPointExtraRange() * 2);
+
+								area1 = new Area(rect);
+
 							} else {
-								
-								maxLat = location1.getCoordinates().get(0).getLatitude();
-								minLat = location1.getCoordinates().get(0).getLatitude();
-								maxLong = location1.getCoordinates().get(0).getLongitude();
-								minLong = location1.getCoordinates().get(0).getLongitude();
-								
+
+								GeneralPath gp = new GeneralPath();
+
+								boolean firstPoint = true;
+
 								for (Point point : location1.getCoordinates()) {
 
-									
-									
-									if(point.getLatitude() < minLat)
-										minLat = point.getLatitude();
-									
-									if(point.getLatitude() > maxLat)
-										maxLat = point.getLatitude();
-									
-									if(point.getLongitude() < minLong)
-										minLong = point.getLongitude();
-									
-									if(point.getLongitude() > maxLong)
-										maxLong = point.getLongitude();
+									if (firstPoint) {
+										firstPoint = false;
+										gp.moveTo(point.getLongitude(), point.getLatitude());
+									}
+
+									gp.lineTo(point.getLongitude(), point.getLatitude());
+
 								}
-								
-								
-								
-								
-								
-								
-								maxLat+= ConfigurationPlatform.getCordinatesAreaExtraRange();
-								maxLong+= ConfigurationPlatform.getCordinatesAreaExtraRange();
-								minLong-= ConfigurationPlatform.getCordinatesAreaExtraRange();
-								minLat-= ConfigurationPlatform.getCordinatesAreaExtraRange();
+
+								gp.closePath();
+								area1 = new Area(gp);
+
 							}
 
 							for (Location location2 : result2.getLocations()) {
 
-								// Verifies if exists a latitude value from the second result
 								{
+									boolean isFound = false;
 
 									for (Point point : location2.getCoordinates()) {
 
-										if (inBetween(point.getLatitude(), minLat, maxLat) && inBetween(point.getLongitude(), minLong, maxLong)) {
+										if (area1.contains(point.getLongitude(), point.getLatitude())) {
 
 											RelationLocations rel1 = new RelationLocations();
 											RelationLocations rel2 = new RelationLocations();
@@ -159,7 +152,7 @@ public class AsyncDataController {
 											rel1.setIdResult(result2.getSourceData().get(0));
 
 											rel2.setTargetResultIdLocation(location1.getId());
-											rel2.setTargetResultIdLocation(location1.getId());
+											rel2.setThisResultIdLocation(location2.getId());
 											rel2.setIdResult(result1.getSourceData().get(0));
 
 											synchronized (result1) {
@@ -169,9 +162,51 @@ public class AsyncDataController {
 												result2.getSameLocationCoordenatesThat().add(rel2);
 											}
 
+											isFound = true;
 											break;
 
 										}
+									}
+									if (!isFound && !location2.getCoordinates().isEmpty()) {
+
+										GeneralPath gp = new GeneralPath();
+
+										boolean firstPoint = true;
+
+										for (Point point : location2.getCoordinates()) {
+
+											if (firstPoint) {
+												firstPoint = false;
+												gp.moveTo(point.getLongitude(), point.getLatitude());
+											}
+
+											gp.lineTo(point.getLongitude(), point.getLatitude());
+
+										}
+
+										gp.closePath();
+										area2 = new Area(gp);
+										area2.intersect(area1);
+										if (!area2.isEmpty()) {
+											RelationLocations rel1 = new RelationLocations();
+											RelationLocations rel2 = new RelationLocations();
+
+											rel1.setTargetResultIdLocation(location2.getId());
+											rel1.setThisResultIdLocation(location1.getId());
+											rel1.setIdResult(result2.getSourceData().get(0));
+
+											rel2.setTargetResultIdLocation(location1.getId());
+											rel2.setThisResultIdLocation(location2.getId());
+											rel2.setIdResult(result1.getSourceData().get(0));
+
+											synchronized (result1) {
+												result1.getSameLocationCoordenatesThat().add(rel1);
+											}
+											synchronized (result2) {
+												result2.getSameLocationCoordenatesThat().add(rel2);
+											}
+										}
+
 									}
 
 								}
@@ -195,9 +230,6 @@ public class AsyncDataController {
 
 		}
 
-		private boolean inBetween(float value, float minValue, float maxValue) {
-			return value <= maxValue && value >= minValue;
-		}
 
 		@Async("DataControllerExecutor")
 		CompletableFuture<Void> findRelationsField(String fieldsString, List<Result> resultList, Log log) {
