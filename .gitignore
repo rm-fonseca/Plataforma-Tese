@@ -36,7 +36,6 @@ hs_err_pid*
 .DS_Store
  
 # Maven
-log/
 target/
 pom.xml.tag
 pom.xml.releaseBackup
