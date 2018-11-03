@@ -3,6 +3,7 @@ package api.rest;
 import java.util.List;
 
 import org.springframework.data.rest.webmvc.BasePathAwareController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,7 @@ import repositoryController.RepositoryController;
  * All rest services are under /rest/
  */
 @RestController
+@CrossOrigin
 @RequestMapping(value = "rest")
 public class InterfaceRest {
 
