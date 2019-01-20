@@ -26,6 +26,8 @@ public class AppStarter extends SpringBootServletInitializer {
 	public static void main(String[] args) throws IOException {
 
 		
+		
+		
 		//Initiate the Logger
 		logger = new Logger();
 		

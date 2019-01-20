@@ -88,4 +88,108 @@ public class DataController {
 		context.close();
 	}
 
+	
+	/*
+	 * Joins the properties of two diferent results.
+	 */
+
+	public static void joinResults(Object a, Object b) {
+
+		Field[] allFields = a.getClass().getDeclaredFields();
+		Object valueA, valueB;
+		Method methodA = null;
+		try {
+
+			for (Field field : allFields) {
+
+				String fieldName = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+				System.out.println(fieldName);
+				if (fieldName.equalsIgnoreCase("id") && a instanceof Result && b instanceof Result) {
+
+					((Result) a). setID(((Result) a).getID() + "&&" + ((Result) b).getID());
+					continue;
+				}
+				
+				try {
+					methodA = a.getClass().getMethod("is" + fieldName);
+				} catch (NoSuchMethodException e) {
+					methodA = a.getClass().getMethod("get" + fieldName);
+				}
+				valueA = methodA.invoke(a);
+				valueB = methodA.invoke(b);
+
+			
+
+				if (valueB == null)
+					continue;
+				else if (valueA == null)
+					a.getClass().getMethod("set" + fieldName).invoke(a, valueB);
+				else if (valueA instanceof List<?>) {
+					List<Object> listA = (List<Object>) valueA;
+					List<Object> listB = (List<Object>) valueB;
+
+					if (listB.size() == 0)
+						continue;
+
+					if (listB.get(0) instanceof LanguageString) {
+
+						List<LanguageString> listALs = (List<LanguageString>) valueA;
+						List<LanguageString> listBLs = (List<LanguageString>) valueB;
+
+						List<LanguageString> toAdd = new ArrayList<LanguageString>();
+
+						for (LanguageString languageStringB : listBLs) {
+							boolean found = false;
+							for (LanguageString languageStringA : listALs) {
+								if (languageStringA.getLanguage().equals(languageStringB.getLanguage())) {
+									found = true;
+									for (String stringB : languageStringB.getText()) {
+
+										if (!languageStringA.getText().contains(stringB))
+											languageStringA.getText().add(stringB);
+
+									}
+
+									break;
+
+								}
+							}
+
+							if (!found) {
+								toAdd.add(languageStringB);
+							}
+
+						}
+
+						listA.addAll(toAdd);
+
+					} else
+						listA.addAll(listB);
+				} else if (BeanUtils.isSimpleValueType(valueA.getClass())) {
+				} else {
+
+					joinResults(valueA, valueB);
+
+				}
+
+			}
+
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

@@ -99,6 +99,32 @@
 	</xs:element>
 
 
+
+	<!-- < Get Result > -->
+
+	<xs:element name="getResultRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:string"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xs:element name="ignoreExtraProperties"
+					type="xs:boolean" minOccurs="1" maxOccurs="1" default="false" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="getResultResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="results" type="tns:result"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xs:element name="count" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
 	<!-- < Repositorie Results > -->
 
 
@@ -237,7 +263,8 @@
 				minOccurs="0" maxOccurs="unbounded" />
 			<xs:element name="IsCombinedResut" type="xs:boolean"
 				minOccurs="1" maxOccurs="1" default="false" />
-
+			<xs:element name="ID" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
 
 
 			<xs:element name="resources" type="tns:resource"
@@ -375,13 +402,13 @@
 				maxOccurs="1" />
 			<xs:element name="name" type="tns:languageString"
 				minOccurs="0" maxOccurs="unbounded" />
-			<xs:element name="coordinates" type="tns:Point" minOccurs="0"
-				maxOccurs="unbounded" />
+			<xs:element name="coordinates" type="tns:Point"
+				minOccurs="0" maxOccurs="unbounded" />
 			<xs:element name="extraProperties"
 				type="tns:extraProperty" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
-	
+
 	<xs:complexType name="Point">
 		<xs:sequence>
 			<xs:element name="latitude" type="xs:float" minOccurs="0"
