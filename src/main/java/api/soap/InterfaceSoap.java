@@ -3,8 +3,6 @@ package api.soap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -13,8 +11,6 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import Log.Log;
 import api.AppStarter;
 import dataController.DataController;
-import plataforma.modelointerno.GetResultRequest;
-import plataforma.modelointerno.GetResultResponse;
 import plataforma.modelointerno.ListRepositoriesRequest;
 import plataforma.modelointerno.ListRepositoriesResponse;
 import plataforma.modelointerno.Repository;
@@ -115,7 +111,7 @@ public class InterfaceSoap {
 
 		Log log = new Log("List Repositories");
 
-		//Get list of repositories.s
+		//Get list of repositories.
 		 List<Repository> results = RepositoryController.ListRepositories();
 
 		ListRepositoriesResponse response = new ListRepositoriesResponse();
@@ -127,32 +123,4 @@ public class InterfaceSoap {
 		AppStarter.logger.WriteToFile(log);
 		return response;
 	}
-	
-	
-	/*
-	 * Get a result by ID
-	 */
-
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getResult")
-	@ResponsePayload
-	public GetResultResponse getResult(@RequestPayload GetResultRequest request) {
-		
-		String command = "Soap getResult\nID: " + request.getId();
-
-		Log log = new Log(command);
-
-		
-		 List<Result> results = RepositoryController.getResult(request,log);
-
-		GetResultResponse response = new GetResultResponse();
-		response.getResults().addAll(results);
-		response.setCount(results.size());
-		
-		//Register end of call and write to log file
-		log.Close();
-		AppStarter.logger.WriteToFile(log);
-		
-		return response;
-	}
-
 }

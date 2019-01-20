@@ -149,11 +149,11 @@ public class AsyncDataController {
 
 											rel1.setTargetResultIdLocation(location2.getId());
 											rel1.setThisResultIdLocation(location1.getId());
-											rel1.setIdResult(result2.getID());
+											rel1.setIdResult(result2.getSourceData().get(0));
 
 											rel2.setTargetResultIdLocation(location1.getId());
 											rel2.setThisResultIdLocation(location2.getId());
-											rel2.setIdResult(result1.getID());
+											rel2.setIdResult(result1.getSourceData().get(0));
 
 											synchronized (result1) {
 												result1.getSameLocationCoordenatesThat().add(rel1);
@@ -193,11 +193,11 @@ public class AsyncDataController {
 
 											rel1.setTargetResultIdLocation(location2.getId());
 											rel1.setThisResultIdLocation(location1.getId());
-											rel1.setIdResult(result2.getID());
+											rel1.setIdResult(result2.getSourceData().get(0));
 
 											rel2.setTargetResultIdLocation(location1.getId());
 											rel2.setThisResultIdLocation(location2.getId());
-											rel2.setIdResult(result1.getID());
+											rel2.setIdResult(result1.getSourceData().get(0));
 
 											synchronized (result1) {
 												result1.getSameLocationCoordenatesThat().add(rel1);
@@ -229,6 +229,7 @@ public class AsyncDataController {
 			return CompletableFuture.completedFuture(null);
 
 		}
+
 
 		@Async("DataControllerExecutor")
 		CompletableFuture<Void> findRelationsField(String fieldsString, List<Result> resultList, Log log) {
@@ -320,8 +321,8 @@ public class AsyncDataController {
 
 							if (fieldCounter == fields.length - 1) {
 
-								rel1.setTargetResultId(result2.getID());
-								rel2.setTargetResultId(result1.getID());
+								rel1.setTargetResultId(result2.getSourceData().get(0));
+								rel2.setTargetResultId(result1.getSourceData().get(0));
 
 								synchronized (result1) {
 									result1.getRelationsByFields().add(rel1);
@@ -429,7 +430,7 @@ public class AsyncDataController {
 								break;
 
 							if (fieldCounter == fields.length - 1) {
-								DataController.joinResults(result1, result2);
+								joinResults(result1, result2);
 								resultList.remove(j);
 								j--;
 								result1.setIsCombinedResut(true);
@@ -500,6 +501,99 @@ public class AsyncDataController {
 
 		}
 
+		/*
+		 * Joins the properties of two diferent results.
+		 */
+
+		private void joinResults(Object a, Object b) {
+
+			Field[] allFields = a.getClass().getDeclaredFields();
+			Object valueA, valueB;
+			Method methodA = null;
+			try {
+
+				for (Field field : allFields) {
+
+					String fieldName = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+					try {
+						methodA = a.getClass().getMethod("get" + fieldName);
+					} catch (NoSuchMethodException e) {
+						methodA = a.getClass().getMethod("is" + fieldName);
+					}
+					valueA = methodA.invoke(a);
+					valueB = methodA.invoke(b);
+
+					if (valueB == null)
+						continue;
+					else if (valueA == null)
+						a.getClass().getMethod("set" + fieldName).invoke(a, valueB);
+					else if (valueA instanceof List<?>) {
+						List<Object> listA = (List<Object>) valueA;
+						List<Object> listB = (List<Object>) valueB;
+
+						if (listB.size() == 0)
+							continue;
+
+						if (listB.get(0) instanceof LanguageString) {
+
+							List<LanguageString> listALs = (List<LanguageString>) valueA;
+							List<LanguageString> listBLs = (List<LanguageString>) valueB;
+
+							List<LanguageString> toAdd = new ArrayList<LanguageString>();
+
+							for (LanguageString languageStringB : listBLs) {
+								boolean found = false;
+								for (LanguageString languageStringA : listALs) {
+									if (languageStringA.getLanguage().equals(languageStringB.getLanguage())) {
+										found = true;
+										for (String stringB : languageStringB.getText()) {
+
+											if (!languageStringA.getText().contains(stringB))
+												languageStringA.getText().add(stringB);
+
+										}
+
+										break;
+
+									}
+								}
+
+								if (!found) {
+									toAdd.add(languageStringB);
+								}
+
+							}
+
+							listA.addAll(toAdd);
+
+						} else
+							listA.addAll(listB);
+					} else if (BeanUtils.isSimpleValueType(valueA.getClass())) {
+					} else {
+
+						joinResults(valueA, valueB);
+
+					}
+
+				}
+
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

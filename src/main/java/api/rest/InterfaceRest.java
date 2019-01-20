@@ -16,8 +16,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import Log.Log;
 import api.AppStarter;
 import dataController.DataController;
-import plataforma.modelointerno.GetResultRequest;
-import plataforma.modelointerno.GetResultResponse;
 import plataforma.modelointerno.ListRepositoriesRequest;
 import plataforma.modelointerno.ListRepositoriesResponse;
 import plataforma.modelointerno.Repository;
@@ -153,37 +151,4 @@ public class InterfaceRest {
 		return response;
 	}
 
-	/*
-	 * Get a result by ID
-	 */
-
-	@RequestMapping(value = "getResult", method = RequestMethod.GET, produces = "application/json")
-	public GetResultResponse getResult(GetResultRequest request, @RequestParam(required = false) List<String> id) {
-
-		//Same Bug as in SearchByBoxResponse
-		if (id != null)
-			request.getId().addAll(id);
-		
-		String command = "Rest getResult\nID";
-
-		Log log = new Log(command);
-
-		
-		 List<Result> results = RepositoryController.getResult(request,log);
-
-		GetResultResponse response = new GetResultResponse();
-		response.getResults().addAll(results);
-		response.setCount(results.size());
-
-		
-		
-		
-		//Register end of call and write to log file
-		log.Close();
-		AppStarter.logger.WriteToFile(log);
-		
-		return response;
-	}
-
-	
 }

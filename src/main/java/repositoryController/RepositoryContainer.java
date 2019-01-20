@@ -101,9 +101,4 @@ public class RepositoryContainer {
 		return instance.SearchByBox(latitudeFrom, latitudeTo, longitudeFrom, longitudeTo, ignoreExtraProperties);
 	}
 
-	public Result getResult(String idResult, boolean ignoreExtraProperties) throws Exception {
-		RepositoryAbstract instance = (RepositoryAbstract) classToLoad.newInstance();
-		return instance.getResult( idResult, ignoreExtraProperties) ;
-	}
-
 }
